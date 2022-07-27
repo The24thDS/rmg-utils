@@ -1,4 +1,4 @@
-import { Container, Group, Image, Stack, Tabs } from "@mantine/core";
+import { Group, Image, Stack, Tabs, Text } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants";
 import rmgLogo from "../assets/images/rmg_logo.png";
@@ -26,7 +26,9 @@ export function HeaderTabs() {
     <Stack>
       <Group>
         <Image src={rmgLogo} height={50} width={50} />
-        <p>RMG Utils for Stellaris</p>
+        <Text size="xl" weight={700}>
+          RMG Utils for Stellaris
+        </Text>
       </Group>
       <Tabs value={selectedTab} variant="outline">
         <Tabs.List>{items}</Tabs.List>
