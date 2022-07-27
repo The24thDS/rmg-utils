@@ -1,15 +1,27 @@
-import { MantineProvider, Text, Button, Stack } from "@mantine/core";
+import { Container, MantineProvider } from "@mantine/core";
+import { HeaderTabs } from "./components/HeaderTabs";
 import { theme } from "./theme";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ROUTES } from "./constants";
+import { Home } from "./components/Home";
 
 export default function App() {
   return (
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-      <Stack align="center" mt={50}>
-        <Text size="xl" weight={500}>
-          Welcome to Mantine!
-        </Text>
-        <Button>Click the button</Button>
-      </Stack>
+      <BrowserRouter>
+        <Container size="xl">
+          <HeaderTabs />
+          <Container fluid mt="md" p="sm">
+            <Routes>
+              <Route path={ROUTES.HOME.path} element={<Home />} />
+              <Route
+                path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
+                element={<p>generator page</p>}
+              />
+            </Routes>
+          </Container>
+        </Container>
+      </BrowserRouter>
     </MantineProvider>
   );
 }

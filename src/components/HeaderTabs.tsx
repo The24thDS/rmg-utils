@@ -1,0 +1,36 @@
+import { Container, Group, Image, Stack, Tabs } from "@mantine/core";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ROUTES } from "../constants";
+import rmgLogo from "../assets/images/rmg_logo.png";
+
+const tabs = [ROUTES.HOME, ROUTES.LIGHT_LOCATORS_GENERATOR];
+
+export function HeaderTabs() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const selectedTab = location.pathname;
+
+  const items = tabs.map(({ name, path }) => (
+    <Tabs.Tab
+      value={path}
+      key={path}
+      onClick={() => {
+        navigate(path);
+      }}
+    >
+      {name}
+    </Tabs.Tab>
+  ));
+
+  return (
+    <Stack>
+      <Group>
+        <Image src={rmgLogo} height={50} width={50} />
+        <p>RMG Utils for Stellaris</p>
+      </Group>
+      <Tabs value={selectedTab} variant="outline">
+        <Tabs.List>{items}</Tabs.List>
+      </Tabs>
+    </Stack>
+  );
+}
