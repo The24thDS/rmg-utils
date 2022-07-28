@@ -47,7 +47,12 @@ export default function LightLocatorsGeneratorTab() {
               min={1}
               required
             />
-            <Button onClick={onGenerateClick}>Generate locators</Button>
+            <Button
+              onClick={onGenerateClick}
+              className="umami--click--generate-light-locators-button"
+            >
+              Generate locators
+            </Button>
           </Stack>
         </Grid.Col>
         <Grid.Col span={3} lg={2}>
@@ -68,6 +73,7 @@ export default function LightLocatorsGeneratorTab() {
                   color={copied ? "teal" : "blue"}
                   onClick={copy}
                   styles={{ root: { alignSelf: "flex-end" } }}
+                  className="umami--click--copy-light-locators-button"
                 >
                   {copied ? "Done!" : "Copy locators to clipboard"}
                 </Button>
