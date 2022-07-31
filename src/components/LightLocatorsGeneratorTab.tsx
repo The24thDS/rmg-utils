@@ -10,6 +10,8 @@ import {
 import { useDocumentTitle, useInputState } from "@mantine/hooks";
 import { makeLocators } from "../utils/factories";
 
+const gridColums = 12;
+
 export default function LightLocatorsGeneratorTab() {
   const [locators, setLocators] = useInputState(10);
   const [stateTime, setStateTime] = useInputState(5);
@@ -28,8 +30,8 @@ export default function LightLocatorsGeneratorTab() {
         the number of locators you need, the state time value and hit the
         button.
       </Text>
-      <Grid columns={3}>
-        <Grid.Col span={3} sm={1}>
+      <Grid columns={gridColums}>
+        <Grid.Col span={gridColums} sm={3}>
           <Stack>
             <NumberInput
               value={locators}
@@ -55,7 +57,7 @@ export default function LightLocatorsGeneratorTab() {
             </Button>
           </Stack>
         </Grid.Col>
-        <Grid.Col span={3} lg={2}>
+        <Grid.Col span={gridColums} lg={8} offsetLg={1}>
           <Stack>
             <Textarea
               value={generatedLocators}
