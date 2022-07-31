@@ -7,6 +7,7 @@ import { Home } from "./components/Home";
 import LightLocatorsGeneratorTab from "./components/LightLocatorsGeneratorTab";
 import { useEffect } from "react";
 import Footer from "./components/Footer";
+import Privacy from "./static_pages/Privacy";
 
 export default function App() {
   // Analytics script for prod
@@ -47,6 +48,7 @@ export default function App() {
                 path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
                 element={<LightLocatorsGeneratorTab />}
               />
+              <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
             </Routes>
           </Container>
           <Footer />

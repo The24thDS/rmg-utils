@@ -7,4 +7,8 @@ export const ROUTES = {
     path: "/light-locators-generator",
     name: "Light locators generator",
   },
+  PRIVACY: {
+    path: "/privacy",
+    name: "Privacy policy",
+  },
 };
