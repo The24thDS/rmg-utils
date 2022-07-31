@@ -1,4 +1,4 @@
-import { Container, MantineProvider } from "@mantine/core";
+import { Container, MantineProvider, Stack } from "@mantine/core";
 import { HeaderTabs } from "./components/HeaderTabs";
 import { theme } from "./theme";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -6,6 +6,7 @@ import { ROUTES } from "./constants";
 import { Home } from "./components/Home";
 import LightLocatorsGeneratorTab from "./components/LightLocatorsGeneratorTab";
 import { useEffect } from "react";
+import Footer from "./components/Footer";
 
 export default function App() {
   // Analytics script for prod
@@ -31,9 +32,15 @@ export default function App() {
   return (
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <BrowserRouter>
-        <Container size={1500} style={{ minHeight: "100vh" }}>
+        <Stack
+          sx={{
+            minHeight: "100vh",
+            maxWidth: "1500px",
+          }}
+          mx="auto"
+        >
           <HeaderTabs />
-          <Container fluid mt="md" p="sm">
+          <Container fluid mt="md" p="sm" mx={0}>
             <Routes>
               <Route path={ROUTES.HOME.path} element={<Home />} />
               <Route
@@ -42,7 +49,8 @@ export default function App() {
               />
             </Routes>
           </Container>
-        </Container>
+          <Footer />
+        </Stack>
       </BrowserRouter>
     </MantineProvider>
   );
