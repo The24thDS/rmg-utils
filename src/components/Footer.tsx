@@ -18,9 +18,15 @@ export default function Footer() {
           {ROUTES.PRIVACY.name}
         </Anchor>
       </Group>
-      <Text size="sm" color={"dimmed"}>
+      <Anchor
+        size="sm"
+        color={"dimmed"}
+        href={`https://github.com/The24thDS/rmg-utils/releases/tag/v${APP_VERSION}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Version: {APP_VERSION}
-      </Text>
+      </Anchor>
     </Group>
   );
 }
