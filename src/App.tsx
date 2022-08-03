@@ -53,12 +53,17 @@ export default function App() {
           <Stack
             sx={{
               minHeight: "100vh",
-              maxWidth: "1500px",
             }}
-            mx="auto"
           >
             <Header />
-            <Container fluid mt="md" p="sm" mx={0}>
+            <Container
+              fluid
+              mt="md"
+              p="sm"
+              sx={{
+                maxWidth: "1500px",
+              }}
+            >
               <Routes>
                 <Route path={ROUTES.HOME.path} element={<Home />} />
                 <Route
