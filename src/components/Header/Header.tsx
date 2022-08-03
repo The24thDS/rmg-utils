@@ -1,11 +1,12 @@
 import { Group, Image, Stack, Tabs, Text } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ROUTES } from "../constants";
-import rmgLogo from "../assets/images/rmg_logo.png";
+
+import { ROUTES } from "../../constants";
+import rmgLogo from "../../assets/images/rmg_logo.png";
 
 const tabs = [ROUTES.HOME, ROUTES.LIGHT_LOCATORS_GENERATOR];
 
-export function HeaderTabs() {
+export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const selectedTab = location.pathname;

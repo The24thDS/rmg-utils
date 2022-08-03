@@ -1,9 +1,9 @@
 import { Container, MantineProvider, Stack } from "@mantine/core";
-import { HeaderTabs } from "./components/HeaderTabs";
+import Header from "./components/Header/Header";
 import { theme } from "./theme";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ROUTES } from "./constants";
-import { Home } from "./components/Home";
+import Home from "./components/Home";
 import LightLocatorsGeneratorTab from "./components/LightLocatorsGeneratorTab";
 import { useEffect } from "react";
 import Footer from "./components/Footer";
@@ -40,7 +40,7 @@ export default function App() {
           }}
           mx="auto"
         >
-          <HeaderTabs />
+          <Header />
           <Container fluid mt="md" p="sm" mx={0}>
             <Routes>
               <Route path={ROUTES.HOME.path} element={<Home />} />

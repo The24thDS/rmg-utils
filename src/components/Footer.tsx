@@ -1,4 +1,4 @@
-import { Anchor, Group, NavLink, Text } from "@mantine/core";
+import { Anchor, Group, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../constants";
 
