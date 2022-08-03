@@ -13,6 +13,7 @@
     "@mantine/core": "5.0.0",
     "@mantine/hooks": "5.0.0",
     "@mantine/notifications": "^5.0.0",
+    "@tabler/icons": "^1.78.1",
     "random": "^3.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

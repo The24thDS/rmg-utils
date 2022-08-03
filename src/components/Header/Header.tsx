@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { ROUTES } from "../../constants";
 import rmgLogo from "../../assets/images/rmg_logo.png";
+import ColorSchemeTogle from "./ColorSchemeToggle";
 
 const tabs = [ROUTES.HOME, ROUTES.LIGHT_LOCATORS_GENERATOR];
 
@@ -25,11 +26,14 @@ export default function Header() {
 
   return (
     <Stack>
-      <Group>
-        <Image src={rmgLogo} height={50} width={50} />
-        <Text size="xl" weight={700}>
-          RMG Utils for Stellaris
-        </Text>
+      <Group position="apart" px="sm">
+        <Group>
+          <Image src={rmgLogo} height={50} width={50} />
+          <Text size="xl" weight={700}>
+            RMG Utils for Stellaris
+          </Text>
+        </Group>
+        <ColorSchemeTogle />
       </Group>
       <Tabs value={selectedTab} variant="outline">
         <Tabs.List>{items}</Tabs.List>

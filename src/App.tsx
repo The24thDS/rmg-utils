@@ -1,15 +1,24 @@
-import { Container, MantineProvider, Stack } from "@mantine/core";
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  Container,
+  MantineProvider,
+  Stack,
+} from "@mantine/core";
 import Header from "./components/Header/Header";
-import { theme } from "./theme";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ROUTES } from "./constants";
 import Home from "./components/Home";
 import LightLocatorsGeneratorTab from "./components/LightLocatorsGeneratorTab";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 
 export default function App() {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
   // Analytics script for prod
   useEffect(() => {
     if (import.meta.env.PROD) {
@@ -31,29 +40,38 @@ export default function App() {
   }, []);
 
   return (
-    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-      <BrowserRouter>
-        <Stack
-          sx={{
-            minHeight: "100vh",
-            maxWidth: "1500px",
-          }}
-          mx="auto"
-        >
-          <Header />
-          <Container fluid mt="md" p="sm" mx={0}>
-            <Routes>
-              <Route path={ROUTES.HOME.path} element={<Home />} />
-              <Route
-                path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
-                element={<LightLocatorsGeneratorTab />}
-              />
-              <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
-            </Routes>
-          </Container>
-          <Footer />
-        </Stack>
-      </BrowserRouter>
-    </MantineProvider>
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        theme={{ colorScheme }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
+        <BrowserRouter>
+          <Stack
+            sx={{
+              minHeight: "100vh",
+              maxWidth: "1500px",
+            }}
+            mx="auto"
+          >
+            <Header />
+            <Container fluid mt="md" p="sm" mx={0}>
+              <Routes>
+                <Route path={ROUTES.HOME.path} element={<Home />} />
+                <Route
+                  path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
+                  element={<LightLocatorsGeneratorTab />}
+                />
+                <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
+              </Routes>
+            </Container>
+            <Footer />
+          </Stack>
+        </BrowserRouter>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
