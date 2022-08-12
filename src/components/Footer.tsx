@@ -1,6 +1,11 @@
-import { Anchor, Group, Text } from "@mantine/core";
+import { Anchor, CSSObject, Group, MantineTheme, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../constants";
+
+const footerLinkStyles = (theme: MantineTheme): CSSObject => ({
+  color:
+    theme.colorScheme === "light" ? theme.colors.dark[5] : theme.colors.dark[0],
+});
 
 export default function Footer() {
   return (
@@ -10,11 +15,7 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Renegades Modding Group
         </Text>
         &bull;
-        <Anchor
-          component={Link}
-          to={ROUTES.PRIVACY.path}
-          sx={(theme) => ({ color: theme.colors.dark[0] })}
-        >
+        <Anchor sx={footerLinkStyles} component={Link} to={ROUTES.PRIVACY.path}>
           {ROUTES.PRIVACY.name}
         </Anchor>
       </Group>
