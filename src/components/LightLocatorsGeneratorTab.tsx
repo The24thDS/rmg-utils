@@ -8,7 +8,9 @@ import {
   Textarea,
 } from "@mantine/core";
 import { useDocumentTitle, useInputState } from "@mantine/hooks";
+import { NetlifyFunctions } from "../constants";
 import { makeLocators } from "../utils/factories";
+import { netlifyFunctionInvoke } from "../utils/general";
 
 const gridColums = 12;
 
@@ -18,9 +20,37 @@ export default function LightLocatorsGeneratorTab() {
   const [generatedLocators, setGeneratedLocators] = useInputState("");
   useDocumentTitle("RMG Utils for Stellaris - Light Locators Generator");
 
-  const onGenerateClick = () => {
+  const onGenerateClick = async () => {
     const result = makeLocators(locators, stateTime);
     setGeneratedLocators(result.join("\n"));
+    try {
+      await netlifyFunctionInvoke(
+        NetlifyFunctions.SAVE_LOCATORS_INTEGRATIONS,
+        { "Content-Type": "application/json" },
+        { locators, stateTime, type: "generate" }
+      );
+    } catch (e) {
+      // TODO: Report to Sentry
+      console.error(e);
+    }
+  };
+
+  const onCopyClick = async (copy: Function) => {
+    copy();
+    try {
+      await netlifyFunctionInvoke(
+        NetlifyFunctions.SAVE_LOCATORS_INTEGRATIONS,
+        { "Content-Type": "application/json" },
+        {
+          locators: generatedLocators.split("\n").length,
+          stateTime,
+          type: "copy",
+        }
+      );
+    } catch (e) {
+      // TODO: Report to Sentry
+      console.error(e);
+    }
   };
 
   return (
@@ -73,7 +103,7 @@ export default function LightLocatorsGeneratorTab() {
               {({ copied, copy }) => (
                 <Button
                   color={copied ? "teal" : "blue"}
-                  onClick={copy}
+                  onClick={() => onCopyClick(copy)}
                   styles={{ root: { alignSelf: "flex-end" } }}
                   className="umami--click--copy-light-locators-button"
                 >

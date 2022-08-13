@@ -12,3 +12,7 @@ export const ROUTES = {
     name: "Privacy policy",
   },
 };
+
+export enum NetlifyFunctions {
+  SAVE_LOCATORS_INTEGRATIONS = "save_locators_interaction",
+}
