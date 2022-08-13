@@ -59,7 +59,7 @@ const handler: Handler = async (event, _context) => {
       } else {
         const { type, locators, stateTime } = JSON.parse(event.body);
         try {
-          if (process.env.NODE_ENV === "production") {
+          if (process.env.LOCAL !== "true") {
             await saveLocatorsInteraction(type, locators, stateTime);
           }
           response.body = "OK";
