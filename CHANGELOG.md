@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/The24thDS/rmg-utils/compare/v1.0.0...v1.1.0) (2022-09-03)
+
+
+### Features
+
+* added color scheme toggle to the header ([4de5da9](https://github.com/The24thDS/rmg-utils/commit/4de5da95aadebee9453c7ee4b919c2edc1ed6a33))
+* added netlify function for saving locators interactions ([15e1c08](https://github.com/The24thDS/rmg-utils/commit/15e1c0815a7829d63ccb61a5580016079ce3a39a))
+* added privacy policy page ([db5f7dc](https://github.com/The24thDS/rmg-utils/commit/db5f7dc6c54240090b0c060ff00a2dc2fc0bb439))
+* added release notes link to the version ([d1c5e68](https://github.com/The24thDS/rmg-utils/commit/d1c5e68a4d8f0f52f03f5e6f11d315899b3c07ed))
+* added sentry error logging ([aec89c1](https://github.com/The24thDS/rmg-utils/commit/aec89c1c1bcfb6e5964e53de9cb185e877cc1127))
+* added version to footer ([33e1baf](https://github.com/The24thDS/rmg-utils/commit/33e1baf8693cdc57cd5cccf036ba6ae5b0943fe9))
+* improved header style ([94e12b9](https://github.com/The24thDS/rmg-utils/commit/94e12b952332139cf6e36ba476bd50209a0bb4c8))
+* saving interactions for generate and copy locators ([31badf1](https://github.com/The24thDS/rmg-utils/commit/31badf164218d724f01ba78fb77350a39e6e7c03))
+* spaced out the light locators form columns ([cb142ee](https://github.com/The24thDS/rmg-utils/commit/cb142eeb3d2950ea38f7a34fddbfe9e48b4c7d6d))
+
+
+### Bug Fixes
+
+* fixed footer links color in light mode ([b898b82](https://github.com/The24thDS/rmg-utils/commit/b898b8274431a9247141d2c7a61d80ab71e4bbda))
+* fixed locators saving not working ([248e7eb](https://github.com/The24thDS/rmg-utils/commit/248e7eba085f4f73b721173e0df7de3c37faecbb))
+
 ## 1.0.0 (2022-07-31)
 
 
