@@ -1,9 +1,19 @@
-import { Anchor, Container, Kbd, List, Text, Title } from "@mantine/core";
-import { dateFormatter } from "../utils/general";
+import {
+  Anchor,
+  Badge,
+  Container,
+  Kbd,
+  List,
+  Text,
+  Title,
+} from "@mantine/core";
+import { dateFormatter, isDNTEnabled } from "../utils/general";
 
-const PRIVACY_POLICY_LAST_UPDATE = new Date("2022-07-31");
+const PRIVACY_POLICY_LAST_UPDATE = new Date("2022-09-03");
 const CONTACT_EMAIL = "renegades.modding.group@gmail.com";
 const DISCORD_LINK = "https://discord.gg/2ZG9K7ucyJ";
+const DNTstatus = isDNTEnabled() ? "ENABLED" : "DISABLED";
+const DNTstatusColor = isDNTEnabled() ? "green" : "red";
 
 export default function Privacy() {
   return (
@@ -86,7 +96,7 @@ export default function Privacy() {
           third-parties.
         </List.Item>
         <List.Item>
-          We do not use any first-party cookies at this time.
+          We use first-party cookies to keep track of the color theme you set.
         </List.Item>
       </List>
       <Title order={3} my="sm">
@@ -116,6 +126,13 @@ export default function Privacy() {
         You do have the right to opt out of all the data collection described in
         this Privacy Policy. You can do this using the{" "}
         <strong>Do Not Track Me</strong> toggle in your browser settings.
+      </Text>
+      <Text size="xl" mt="sm">
+        Currently, <strong>Do Not Track Me</strong> is{" "}
+        <Badge size="lg" color={DNTstatusColor} variant="filled">
+          {DNTstatus}
+        </Badge>
+        . If you change it please refresh the page to pick up the new value.
       </Text>
       <Title order={2} my="md">
         Data location

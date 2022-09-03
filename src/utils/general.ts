@@ -40,3 +40,5 @@ export const netlifyFunctionInvoke = async (
 
   return content;
 };
+
+export const isDNTEnabled = () => navigator.doNotTrack === "1";
