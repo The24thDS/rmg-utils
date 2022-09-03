@@ -74,7 +74,9 @@ export default function Privacy() {
       </Title>
       <Text size="xl">
         We don't log your full IP address while using our web app, but we do use
-        your IP address to determine the country you are using it from.
+        your IP address to determine the country you are using it from and we
+        store part of your IP address with error logs to help us understand how
+        many different users have encountered the same error.
       </Text>
       <Title order={3} my="sm">
         Data collected for debugging

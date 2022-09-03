@@ -15,6 +15,7 @@
     "@mantine/hooks": "5.0.0",
     "@mantine/notifications": "^5.0.0",
     "@netlify/functions": "^1.0.0",
+    "@sentry/browser": "^7.12.1",
     "@tabler/icons": "^1.78.1",
     "airtable": "^0.11.4",
     "random": "^3.0.6",

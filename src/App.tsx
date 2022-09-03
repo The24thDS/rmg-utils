@@ -13,6 +13,7 @@ import LightLocatorsGeneratorTab from "./components/LightLocatorsGeneratorTab";
 import { useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
+import { isDNTEnabled } from "./utils/general";
 
 export default function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
@@ -21,7 +22,7 @@ export default function App() {
 
   // Analytics script for prod
   useEffect(() => {
-    if (import.meta.env.PROD) {
+    if (import.meta.env.PROD && !isDNTEnabled()) {
       const script = document.createElement("script");
 
       script.src = "https://athena.david-sima.dev/umami.js";

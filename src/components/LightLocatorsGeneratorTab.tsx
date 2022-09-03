@@ -8,9 +8,10 @@ import {
   Textarea,
 } from "@mantine/core";
 import { useDocumentTitle, useInputState } from "@mantine/hooks";
+import * as Sentry from "@sentry/browser";
 import { NetlifyFunctions } from "../constants";
 import { makeLocators } from "../utils/factories";
-import { netlifyFunctionInvoke } from "../utils/general";
+import { isDNTEnabled, netlifyFunctionInvoke } from "../utils/general";
 
 const gridColums = 12;
 
@@ -23,33 +24,43 @@ export default function LightLocatorsGeneratorTab() {
   const onGenerateClick = async () => {
     const result = makeLocators(locators, stateTime);
     setGeneratedLocators(result.join("\n"));
-    try {
-      await netlifyFunctionInvoke(
-        NetlifyFunctions.SAVE_LOCATORS_INTEGRATIONS,
-        { "Content-Type": "application/json" },
-        { locators, stateTime, type: "generate" }
-      );
-    } catch (e) {
-      // TODO: Report to Sentry
-      console.error(e);
+    if (!isDNTEnabled()) {
+      const body = { locators, stateTime, type: "generate" };
+      try {
+        await netlifyFunctionInvoke(
+          NetlifyFunctions.SAVE_LOCATORS_INTEGRATIONS,
+          { "Content-Type": "application/json" },
+          body
+        );
+      } catch (e) {
+        Sentry.withScope((scope) => {
+          scope.setContext("post data", body);
+          Sentry.captureException(e);
+        });
+      }
     }
   };
 
   const onCopyClick = async (copy: Function) => {
     copy();
-    try {
-      await netlifyFunctionInvoke(
-        NetlifyFunctions.SAVE_LOCATORS_INTEGRATIONS,
-        { "Content-Type": "application/json" },
-        {
-          locators: generatedLocators.split("\n").length,
-          stateTime,
-          type: "copy",
-        }
-      );
-    } catch (e) {
-      // TODO: Report to Sentry
-      console.error(e);
+    if (!isDNTEnabled()) {
+      const body = {
+        locators: generatedLocators.split("\n").length,
+        stateTime,
+        type: "copy",
+      };
+      try {
+        await netlifyFunctionInvoke(
+          NetlifyFunctions.SAVE_LOCATORS_INTEGRATIONS,
+          { "Content-Type": "application/json" },
+          body
+        );
+      } catch (e) {
+        Sentry.withScope((scope) => {
+          scope.setContext("post data", body);
+          Sentry.captureException(e);
+        });
+      }
     }
   };
 

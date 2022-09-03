@@ -42,3 +42,13 @@ export const netlifyFunctionInvoke = async (
 };
 
 export const isDNTEnabled = () => navigator.doNotTrack === "1";
+
+export const getEnvironment = () => {
+  if (import.meta.env.DEV) {
+    return "development";
+  } else if (location.hostname === "develop--rmg-utils.netlify.app") {
+    return "staging";
+  } else {
+    return "production";
+  }
+};
