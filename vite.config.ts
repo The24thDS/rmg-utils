@@ -8,10 +8,6 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: [
-        "src/assets/images/rmg_logo.png",
-        "src/assets/images/rmg_logo_180.png",
-      ],
       manifest: {
         name: "RMG Utilities for Stellaris",
         short_name: "RMG Utils",
@@ -20,23 +16,23 @@ export default defineConfig({
         theme_color: "#25262b",
         icons: [
           {
-            src: "src/assets/images/rmg_logo_192.png",
+            src: "/assets/images/rmg_logo_192.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "src/assets/images/rmg_logo_512.png",
+            src: "/assets/images/rmg_logo_512.png",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "src/assets/images/maskable_icon_x192.png",
+            src: "/assets/images/maskable_icon_x192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "maskable",
           },
           {
-            src: "src/assets/images/maskable_icon_x512.png",
+            src: "/assets/images/maskable_icon_x512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable",
