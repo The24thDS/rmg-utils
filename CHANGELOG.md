@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/The24thDS/rmg-utils/compare/v1.1.0...v1.2.0) (2022-11-26)
+
+
+### Features
+
+* set up pwa ([026c93d](https://github.com/The24thDS/rmg-utils/commit/026c93d0f8897d9f69aae17ebea4d4fa9cb4a3f9))
+
+
+### Bug Fixes
+
+* fixed manifest images not being available ([092f51b](https://github.com/The24thDS/rmg-utils/commit/092f51b8ec2c87fe9ed6ad6ae21b1acde346b7e4))
+
 ## [1.1.0](https://github.com/The24thDS/rmg-utils/compare/v1.0.0...v1.1.0) (2022-09-03)
 
 
