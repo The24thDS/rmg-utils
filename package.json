@@ -4,7 +4,9 @@
   "version": "1.2.0",
   "scripts": {
     "dev": "vite",
+    "prebuild": "cp magick.js public/assets/magick.js && cp magick.wasm public/assets/magick.wasm",
     "build": "tsc && vite build",
+    "postbuild": "rm public/assets/magick.js public/assets/magick.wasm",
     "preview": "vite preview",
     "release": "npx standard-version",
     "functions": "npx env-cmd -f ./.env.local netlify functions:serve"
