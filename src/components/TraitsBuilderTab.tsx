@@ -28,6 +28,7 @@ import { Stage as StageType } from "konva/lib/Stage";
 const TRAIT_WIDTH = 29;
 
 // TODO: image size validation
+// TODO: analytics?
 
 export default function TraitsBuilderTab() {
   useDocumentTitle("RMG Utils for Stellaris - Traits Builder");
