@@ -5,7 +5,11 @@ import { ROUTES } from "../../constants";
 import rmgLogo from "../../assets/images/rmg_logo.png";
 import ColorSchemeTogle from "./ColorSchemeToggle";
 
-const tabs = [ROUTES.HOME, ROUTES.LIGHT_LOCATORS_GENERATOR];
+const tabs = [
+  ROUTES.HOME,
+  ROUTES.LIGHT_LOCATORS_GENERATOR,
+  ROUTES.TRAITS_BUILDER,
+];
 
 const useStyles = createStyles((theme) => ({
   header: {

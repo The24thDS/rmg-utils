@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 import { isDNTEnabled } from "./utils/general";
+import TraitsBuilderTab from "./components/TraitsBuilderTab";
 
 export default function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
@@ -62,7 +63,8 @@ export default function App() {
               mt="md"
               p="sm"
               sx={{
-                maxWidth: "1500px",
+                maxWidth: "1200px",
+                width: "100%",
               }}
             >
               <Routes>
@@ -70,6 +72,10 @@ export default function App() {
                 <Route
                   path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
                   element={<LightLocatorsGeneratorTab />}
+                />
+                <Route
+                  path={ROUTES.TRAITS_BUILDER.path}
+                  element={<TraitsBuilderTab />}
                 />
                 <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
               </Routes>

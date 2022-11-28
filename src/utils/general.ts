@@ -52,3 +52,18 @@ export const getEnvironment = () => {
     return "production";
   }
 };
+
+interface HSLValue {
+  h?: number;
+  s?: number;
+  l?: number;
+}
+
+export const modifyHSLValue = (value: string, changes: HSLValue) => {
+  const regExp = new RegExp("[0-9]+", "g");
+  let [h = 0, s = 0, l = 0] = value.match(regExp)?.map(Number) ?? [];
+  h += changes.h ?? 0;
+  s += changes.s ?? 0;
+  l += changes.l ?? 0;
+  return `hsl(${h}, ${s}%, ${l}%)`;
+};

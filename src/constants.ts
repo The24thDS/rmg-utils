@@ -7,6 +7,10 @@ export const ROUTES = {
     path: "/light-locators-generator",
     name: "Light locators generator",
   },
+  TRAITS_BUILDER: {
+    path: "/traits-builder",
+    name: "Traits builder",
+  },
   PRIVACY: {
     path: "/privacy",
     name: "Privacy policy",
