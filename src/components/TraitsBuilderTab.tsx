@@ -27,6 +27,8 @@ import { Stage as StageType } from "konva/lib/Stage";
 
 const TRAIT_WIDTH = 29;
 
+// TODO: image size validation
+
 export default function TraitsBuilderTab() {
   useDocumentTitle("RMG Utils for Stellaris - Traits Builder");
   const [name, setName] = useState("");
@@ -37,13 +39,18 @@ export default function TraitsBuilderTab() {
   const [iconBlobURL, setIconBlobURL] = useState<null | string>(null);
   const [recolorIcon, setRecolorIcon] = useState(false);
   const [iconScale, setIconScale] = useState(1);
+  const [iconXOffset, setIconXOffset] = useState(0);
+  const [iconYOffset, setIconYOffset] = useState(0);
   const stageRef = useRef<StageType>(null);
 
-  const iconRef = useCallback((node: HTMLImageElement) => {
-    if (node !== null) {
-      setIconBlobURL(node.src);
-    }
-  }, []);
+  const iconRef = useCallback(
+    (node: HTMLImageElement) => {
+      if (node !== null) {
+        setIconBlobURL(node.src);
+      }
+    },
+    [files[0]?.path]
+  );
 
   return (
     <>
@@ -78,6 +85,8 @@ export default function TraitsBuilderTab() {
                     canvasWidth={TRAIT_WIDTH}
                     imageURL={iconBlobURL}
                     scale={iconScale}
+                    xOffset={iconXOffset}
+                    yOffset={iconYOffset}
                   />
                   {recolorIcon && (
                     <Rect
@@ -92,7 +101,7 @@ export default function TraitsBuilderTab() {
                 </Layer>
               </Stage>
               <DownloadButton type="PNG" stage={stageRef.current} name={name} />
-              {/* <DownloadButton type="DDS" stage={stageRef.current} name={name} /> */}
+              <DownloadButton type="DDS" stage={stageRef.current} name={name} />
             </Stack>
             <Stack spacing="xs">
               <Stack mih={140} spacing={1}>
@@ -129,6 +138,36 @@ export default function TraitsBuilderTab() {
                 ]}
                 value={iconScale}
                 onChange={(v) => setIconScale(Number(v.toFixed(2)))}
+              />
+              <Text size="sm" mt="sm">
+                Icon X offset
+              </Text>
+              <Slider
+                defaultValue={0}
+                min={0}
+                step={0.1}
+                max={30}
+                marks={[
+                  { value: 0, label: "0" },
+                  { value: 30, label: "30" },
+                ]}
+                value={iconXOffset}
+                onChange={(v) => setIconXOffset(Number(v.toFixed(2)))}
+              />
+              <Text size="sm" mt="sm">
+                Icon Y offset
+              </Text>
+              <Slider
+                defaultValue={0}
+                min={0}
+                step={0.1}
+                max={30}
+                marks={[
+                  { value: 0, label: "0" },
+                  { value: 30, label: "30" },
+                ]}
+                value={iconYOffset}
+                onChange={(v) => setIconYOffset(Number(v.toFixed(2)))}
               />
             </Stack>
           </SimpleGrid>
