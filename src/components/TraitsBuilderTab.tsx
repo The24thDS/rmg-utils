@@ -227,7 +227,16 @@ export default function TraitsBuilderTab() {
                 "hsl(177, 91%, 43%)",
                 "hsl(166, 100%, 41%)",
                 "hsl(43, 94%, 57%)",
+                "hsl(94, 56%, 41%)",
+                "hsl(221, 66%, 51%)",
+                "hsl(180, 38%, 50%)",
+                "hsl(127, 44%, 44%)",
+                "hsl(199, 69%, 50%)",
+                "hsl(268, 87%, 57%)",
+                "hsl(34, 69%, 50%)",
+                "hsla(43, 72%, 6%, 1)",
               ]}
+              swatchesPerRow={6}
             />
             <ColorPickerElement
               label="Icon color"
@@ -235,6 +244,7 @@ export default function TraitsBuilderTab() {
               value={state.iconColor}
               setValue={(v) => dispatch({ type: "set_iconColor", value: v })}
               swatches={["hsla(43, 72%, 6%, 1)"]}
+              swatchesPerRow={3.55}
             />
           </SimpleGrid>
         </Grid.Col>
