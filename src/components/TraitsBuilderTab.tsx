@@ -1,20 +1,5 @@
-import {
-  Grid,
-  SimpleGrid,
-  Stack,
-  Text,
-  TextInput,
-  Flex,
-  Switch,
-  Slider,
-} from "@mantine/core";
-import {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Grid, SimpleGrid, Stack, Text, TextInput } from "@mantine/core";
+import { useCallback, useReducer, useRef, useState } from "react";
 import { Stage, Layer, Circle, Rect } from "react-konva";
 import { modifyHSLValue } from "../utils/general";
 import ColorPickerElement from "./shared/ColorPickerElement";
@@ -24,33 +9,118 @@ import CanvasImage from "./shared/CanvasImage";
 import { useDocumentTitle } from "@mantine/hooks";
 import DownloadButton from "./shared/DownloadButton";
 import { Stage as StageType } from "konva/lib/Stage";
+import TraitIconControls from "./TraitIconControls";
 
 const TRAIT_WIDTH = 29;
+
+interface State {
+  name: string;
+  bgColor: string;
+  bgColorAlt: string;
+  iconColor: string;
+  files: FileWithPath[];
+  iconBlobURL: null | string;
+  recolorIcon: boolean;
+  iconScale: number;
+  iconXOffset: number;
+  iconYOffset: number;
+}
+
+export type TraitStateActionType =
+  | "set_name"
+  | "set_bgColor"
+  | "set_iconColor"
+  | "set_files"
+  | "set_iconBlobURL"
+  | "set_recolorIcon"
+  | "set_iconScale"
+  | "set_iconXOffset"
+  | "set_iconYOffset";
+
+const INITIAL_STATE: State = {
+  name: "",
+  bgColor: "hsl(350, 94%, 42%)",
+  bgColorAlt: modifyHSLValue("hsl(350, 94%, 42%)", { l: -15 }),
+  iconColor: "hsla(43, 72%, 6%, 1)",
+  files: [],
+  iconBlobURL: null,
+  recolorIcon: false,
+  iconScale: 1,
+  iconXOffset: 0,
+  iconYOffset: 0,
+};
+
+const reducer = (
+  state: State,
+  action: { type: TraitStateActionType; value: any }
+): State => {
+  switch (action.type) {
+    case "set_name":
+      return {
+        ...state,
+        name: action.value,
+      };
+    case "set_bgColor":
+      return {
+        ...state,
+        bgColor: action.value,
+        bgColorAlt: modifyHSLValue(action.value, { l: -15 }),
+      };
+    case "set_iconColor":
+      return {
+        ...state,
+        iconColor: action.value,
+      };
+    case "set_files":
+      return {
+        ...state,
+        files: action.value,
+      };
+    case "set_iconBlobURL":
+      return {
+        ...state,
+        iconBlobURL: action.value,
+      };
+    case "set_recolorIcon":
+      return {
+        ...state,
+        recolorIcon: action.value,
+      };
+    case "set_iconScale":
+      return {
+        ...state,
+        iconScale: action.value,
+      };
+    case "set_iconXOffset":
+      return {
+        ...state,
+        iconXOffset: action.value,
+      };
+    case "set_iconYOffset":
+      return {
+        ...state,
+        iconYOffset: action.value,
+      };
+    default:
+      return state;
+  }
+};
 
 // TODO: image size validation
 // TODO: analytics?
 
 export default function TraitsBuilderTab() {
   useDocumentTitle("RMG Utils for Stellaris - Traits Builder");
-  const [name, setName] = useState("");
-  const [bgColor, setBgColor] = useState("hsl(350, 94%, 42%)");
-  const bgColorAlt = modifyHSLValue(bgColor, { l: -15 });
-  const [iconColor, setIconColor] = useState("hsla(43, 72%, 6%, 1)");
-  const [files, setFiles] = useState<FileWithPath[]>([]);
-  const [iconBlobURL, setIconBlobURL] = useState<null | string>(null);
-  const [recolorIcon, setRecolorIcon] = useState(false);
-  const [iconScale, setIconScale] = useState(1);
-  const [iconXOffset, setIconXOffset] = useState(0);
-  const [iconYOffset, setIconYOffset] = useState(0);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const stageRef = useRef<StageType>(null);
 
   const iconRef = useCallback(
     (node: HTMLImageElement) => {
       if (node !== null) {
-        setIconBlobURL(node.src);
+        dispatch({ type: "set_iconBlobURL", value: node.src });
       }
     },
-    [files[0]?.path]
+    [state.files[0]?.path]
   );
 
   return (
@@ -66,8 +136,13 @@ export default function TraitsBuilderTab() {
             <Stack>
               <TextInput
                 label="Name"
-                value={name}
-                onChange={(event) => setName(event.currentTarget.value)}
+                value={state.name}
+                onChange={(event) =>
+                  dispatch({
+                    type: "set_name",
+                    value: event.currentTarget.value,
+                  })
+                }
               />
               <Text size="sm">Preview</Text>
               <Stage width={TRAIT_WIDTH} height={TRAIT_WIDTH} ref={stageRef}>
@@ -77,32 +152,45 @@ export default function TraitsBuilderTab() {
                     y={TRAIT_WIDTH / 2}
                     fillLinearGradientStartPoint={{ x: 0, y: 0 }}
                     fillLinearGradientEndPoint={{ x: 0, y: TRAIT_WIDTH }}
-                    fillLinearGradientColorStops={[0, bgColor, 0.8, bgColorAlt]}
+                    fillLinearGradientColorStops={[
+                      0,
+                      state.bgColor,
+                      0.8,
+                      state.bgColorAlt,
+                    ]}
                     radius={TRAIT_WIDTH / 2}
                   />
                 </Layer>
                 <Layer>
                   <CanvasImage
                     canvasWidth={TRAIT_WIDTH}
-                    imageURL={iconBlobURL}
-                    scale={iconScale}
-                    xOffset={iconXOffset}
-                    yOffset={iconYOffset}
+                    imageURL={state.iconBlobURL}
+                    scale={state.iconScale}
+                    xOffset={state.iconXOffset}
+                    yOffset={state.iconYOffset}
                   />
-                  {recolorIcon && (
+                  {state.recolorIcon && (
                     <Rect
                       x={0}
                       y={0}
                       width={TRAIT_WIDTH}
                       height={TRAIT_WIDTH}
-                      fill={iconColor}
+                      fill={state.iconColor}
                       globalCompositeOperation="source-in"
                     />
                   )}
                 </Layer>
               </Stage>
-              <DownloadButton type="PNG" stage={stageRef.current} name={name} />
-              <DownloadButton type="DDS" stage={stageRef.current} name={name} />
+              <DownloadButton
+                type="PNG"
+                stage={stageRef.current}
+                name={state.name}
+              />
+              <DownloadButton
+                type="DDS"
+                stage={stageRef.current}
+                name={state.name}
+              />
             </Stack>
             <Stack spacing="xs">
               <Stack mih={140} spacing={1}>
@@ -111,64 +199,19 @@ export default function TraitsBuilderTab() {
                   accept={IMAGE_MIME_TYPE}
                   maxFiles={1}
                   multiple={false}
-                  onDrop={setFiles}
+                  onDrop={(v) => dispatch({ type: "set_files", value: v })}
                   mb="sm"
                 >
                   <Text align="center">Drop your icon here</Text>
                 </Dropzone>
-                <ImagePreview file={files[0]} ref={iconRef} />
+                <ImagePreview file={state.files[0]} ref={iconRef} />
               </Stack>
-              <Switch
-                label="Recolor icon"
-                checked={recolorIcon}
-                onChange={(event) =>
-                  setRecolorIcon(event.currentTarget.checked)
-                }
-                onLabel="ON"
-                offLabel="OFF"
-              />
-              <Text size="sm">Icon scale</Text>
-              <Slider
-                defaultValue={1}
-                min={0.1}
-                step={0.1}
-                max={5}
-                marks={[
-                  { value: 1, label: "1x" },
-                  { value: 5, label: "5x" },
-                ]}
-                value={iconScale}
-                onChange={(v) => setIconScale(Number(v.toFixed(2)))}
-              />
-              <Text size="sm" mt="sm">
-                Icon X offset
-              </Text>
-              <Slider
-                defaultValue={0}
-                min={0}
-                step={0.1}
-                max={30}
-                marks={[
-                  { value: 0, label: "0" },
-                  { value: 30, label: "30" },
-                ]}
-                value={iconXOffset}
-                onChange={(v) => setIconXOffset(Number(v.toFixed(2)))}
-              />
-              <Text size="sm" mt="sm">
-                Icon Y offset
-              </Text>
-              <Slider
-                defaultValue={0}
-                min={0}
-                step={0.1}
-                max={30}
-                marks={[
-                  { value: 0, label: "0" },
-                  { value: 30, label: "30" },
-                ]}
-                value={iconYOffset}
-                onChange={(v) => setIconYOffset(Number(v.toFixed(2)))}
+              <TraitIconControls
+                recolorIcon={state.recolorIcon}
+                iconScale={state.iconScale}
+                iconXOffset={state.iconXOffset}
+                iconYOffset={state.iconYOffset}
+                dispatch={dispatch}
               />
             </Stack>
           </SimpleGrid>
@@ -177,8 +220,8 @@ export default function TraitsBuilderTab() {
           <SimpleGrid cols={2} spacing="xl">
             <ColorPickerElement
               label="Background color"
-              value={bgColor}
-              setValue={setBgColor}
+              value={state.bgColor}
+              setValue={(v) => dispatch({ type: "set_bgColor", value: v })}
               swatches={[
                 "hsl(350, 94%, 42%)",
                 "hsl(177, 91%, 43%)",
@@ -189,8 +232,8 @@ export default function TraitsBuilderTab() {
             <ColorPickerElement
               label="Icon color"
               format="hsla"
-              value={iconColor}
-              setValue={setIconColor}
+              value={state.iconColor}
+              setValue={(v) => dispatch({ type: "set_iconColor", value: v })}
               swatches={["hsla(43, 72%, 6%, 1)"]}
             />
           </SimpleGrid>

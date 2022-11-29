@@ -12,7 +12,7 @@ export default defineConfig({
         name: "RMG Utilities for Stellaris",
         short_name: "RMG Utils",
         description:
-          "RMG Utils is an application that RMG is using to expediate some part of the mod-making process.",
+          "RMG Utils is an application that RMG is using to expediate some parts of the mod-making process.",
         theme_color: "#25262b",
         icons: [
           {

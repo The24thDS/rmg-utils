@@ -1,4 +1,4 @@
-import { Image, Text } from "@mantine/core";
+import { Image } from "@mantine/core";
 import { FileWithPath } from "@mantine/dropzone";
 import { forwardRef } from "react";
 
