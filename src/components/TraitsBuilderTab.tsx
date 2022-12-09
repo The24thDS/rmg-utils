@@ -1,7 +1,12 @@
 import { Grid, SimpleGrid, Stack, Text, TextInput } from "@mantine/core";
-import { useCallback, useReducer, useRef, useState } from "react";
+import { useCallback, useReducer, useRef } from "react";
 import { Stage, Layer, Circle, Rect } from "react-konva";
-import { modifyHSLValue } from "../utils/general";
+import * as Sentry from "@sentry/browser";
+import {
+  isDNTEnabled,
+  modifyHSLValue,
+  netlifyFunctionInvoke,
+} from "../utils/general";
 import ColorPickerElement from "./shared/ColorPickerElement";
 import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from "@mantine/dropzone";
 import ImagePreview from "./shared/ImagePreview";
@@ -10,10 +15,11 @@ import { useDocumentTitle } from "@mantine/hooks";
 import DownloadButton from "./shared/DownloadButton";
 import { Stage as StageType } from "konva/lib/Stage";
 import TraitIconControls from "./TraitIconControls";
+import { NetlifyFunctions } from "../constants";
 
 const TRAIT_WIDTH = 29;
 
-interface State {
+export interface State {
   name: string;
   bgColor: string;
   bgColorAlt: string;
@@ -106,9 +112,6 @@ const reducer = (
   }
 };
 
-// TODO: image size validation
-// TODO: analytics?
-
 export default function TraitsBuilderTab() {
   useDocumentTitle("RMG Utils for Stellaris - Traits Builder");
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
@@ -122,6 +125,24 @@ export default function TraitsBuilderTab() {
     },
     [state.files[0]?.path]
   );
+
+  const postAnalytics = async (type: "PNG" | "DDS") => {
+    if (!isDNTEnabled()) {
+      const body = { type, state };
+      try {
+        await netlifyFunctionInvoke(
+          NetlifyFunctions.SAVE_TRAITS_INTERACTIONS,
+          { "Content-Type": "application/json" },
+          body
+        );
+      } catch (e) {
+        Sentry.withScope((scope) => {
+          scope.setContext("post data", body);
+          Sentry.captureException(e);
+        });
+      }
+    }
+  };
 
   return (
     <>
@@ -185,11 +206,13 @@ export default function TraitsBuilderTab() {
                 type="PNG"
                 stage={stageRef.current}
                 name={state.name}
+                triggerAnalytics={postAnalytics}
               />
               <DownloadButton
                 type="DDS"
                 stage={stageRef.current}
                 name={state.name}
+                triggerAnalytics={postAnalytics}
               />
             </Stack>
             <Stack spacing="xs">
@@ -234,7 +257,7 @@ export default function TraitsBuilderTab() {
                 "hsl(199, 69%, 50%)",
                 "hsl(268, 87%, 57%)",
                 "hsl(34, 69%, 50%)",
-                "hsla(43, 72%, 6%, 1)",
+                "hsl(0, 3%, 61%)",
               ]}
               swatchesPerRow={6}
             />

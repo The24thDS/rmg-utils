@@ -14,12 +14,14 @@ interface DownloadButtonProps {
   type: "PNG" | "DDS";
   stage: Stage | null;
   name: string;
+  triggerAnalytics?: (type: "PNG" | "DDS") => void;
 }
 
 export default function DownloadButton({
   type,
   stage,
   name,
+  triggerAnalytics,
 }: DownloadButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const isDisabled = stage === null;
@@ -59,6 +61,9 @@ export default function DownloadButton({
       URL.revokeObjectURL(link.href);
       document.body.removeChild(link);
       setIsLoading(false);
+      if (triggerAnalytics) {
+        triggerAnalytics(type);
+      }
     }
   };
 
@@ -70,6 +75,7 @@ export default function DownloadButton({
       disabled={isDisabled}
       styles={{ root: { paddingRight: "9px", paddingLeft: "9px" } }}
       onClick={onClick}
+      className={`umami--click--download-trait-${type}`}
     >
       Download {type}
     </Button>

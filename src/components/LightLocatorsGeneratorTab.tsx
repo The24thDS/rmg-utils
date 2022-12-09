@@ -28,7 +28,7 @@ export default function LightLocatorsGeneratorTab() {
       const body = { locators, stateTime, type: "generate" };
       try {
         await netlifyFunctionInvoke(
-          NetlifyFunctions.SAVE_LOCATORS_INTEGRATIONS,
+          NetlifyFunctions.SAVE_LOCATORS_INTERACTIONS,
           { "Content-Type": "application/json" },
           body
         );
@@ -51,7 +51,7 @@ export default function LightLocatorsGeneratorTab() {
       };
       try {
         await netlifyFunctionInvoke(
-          NetlifyFunctions.SAVE_LOCATORS_INTEGRATIONS,
+          NetlifyFunctions.SAVE_LOCATORS_INTERACTIONS,
           { "Content-Type": "application/json" },
           body
         );
