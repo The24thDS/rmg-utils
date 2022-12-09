@@ -1,7 +1,9 @@
 import {
+  Center,
   ColorScheme,
   ColorSchemeProvider,
   Container,
+  Loader,
   MantineProvider,
   Stack,
 } from "@mantine/core";
@@ -11,11 +13,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ROUTES } from "./constants";
 import Home from "./components/Home";
 import LightLocatorsGeneratorTab from "./components/LightLocatorsGeneratorTab";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 import { isDNTEnabled } from "./utils/general";
-import TraitsBuilderTab from "./components/TraitsBuilderTab";
+// import TraitsBuilderTab from "./components/TraitsBuilderTab";
+
+const TraitsBuilderTab = lazy(() => import("./components/TraitsBuilderTab"));
 
 export default function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
@@ -77,7 +81,17 @@ export default function App() {
                   />
                   <Route
                     path={ROUTES.TRAITS_BUILDER.path}
-                    element={<TraitsBuilderTab />}
+                    element={
+                      <Suspense
+                        fallback={
+                          <Center style={{ height: "300px" }}>
+                            <Loader size="xl" variant="bars" />
+                          </Center>
+                        }
+                      >
+                        <TraitsBuilderTab />
+                      </Suspense>
+                    }
                   />
                   <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
                 </Routes>
