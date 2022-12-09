@@ -6,7 +6,7 @@
     <title>RMG Utils for Stellaris</title>
     <meta
       name="description"
-      content="RMG Utils is an application that RMG is using to expediate some part of the mod-making process."
+      content="RMG Utils is an application that RMG is using to expediate some parts of the mod-making process."
     />
     <link rel="icon" type="image/png" href="/src/assets/images/rmg_logo.png" />
     <link
@@ -27,6 +27,10 @@
   </head>
   <body>
     <div id="root"></div>
+    <script type="module">
+      import * as Magick from "/magickApi.js";
+      window.magick = Magick;
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

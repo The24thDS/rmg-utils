@@ -5,6 +5,7 @@ import {
   MantineProvider,
   Stack,
 } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ROUTES } from "./constants";
@@ -14,6 +15,7 @@ import { useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 import { isDNTEnabled } from "./utils/general";
+import TraitsBuilderTab from "./components/TraitsBuilderTab";
 
 export default function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
@@ -50,33 +52,40 @@ export default function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <BrowserRouter>
-          <Stack
-            sx={{
-              minHeight: "100vh",
-            }}
-          >
-            <Header />
-            <Container
-              fluid
-              mt="md"
-              p="sm"
+        <NotificationsProvider>
+          <BrowserRouter>
+            <Stack
               sx={{
-                maxWidth: "1500px",
+                minHeight: "100vh",
               }}
             >
-              <Routes>
-                <Route path={ROUTES.HOME.path} element={<Home />} />
-                <Route
-                  path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
-                  element={<LightLocatorsGeneratorTab />}
-                />
-                <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
-              </Routes>
-            </Container>
-            <Footer />
-          </Stack>
-        </BrowserRouter>
+              <Header />
+              <Container
+                fluid
+                mt="md"
+                p="sm"
+                sx={{
+                  maxWidth: "1200px",
+                  width: "100%",
+                }}
+              >
+                <Routes>
+                  <Route path={ROUTES.HOME.path} element={<Home />} />
+                  <Route
+                    path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
+                    element={<LightLocatorsGeneratorTab />}
+                  />
+                  <Route
+                    path={ROUTES.TRAITS_BUILDER.path}
+                    element={<TraitsBuilderTab />}
+                  />
+                  <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
+                </Routes>
+              </Container>
+              <Footer />
+            </Stack>
+          </BrowserRouter>
+        </NotificationsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );
