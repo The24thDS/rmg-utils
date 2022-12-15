@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/The24thDS/rmg-utils/compare/v1.3.0...v1.3.1) (2022-12-15)
+
+
+### Bug Fixes
+
+* increased scale range ([7a9803d](https://github.com/The24thDS/rmg-utils/commit/7a9803d4ffacce7ec26ba5a35ab2d72bf63458e1))
+
 ## [1.3.0](https://github.com/The24thDS/rmg-utils/compare/v1.2.0...v1.3.0) (2022-12-09)
 
 ## [1.2.0](https://github.com/The24thDS/rmg-utils/compare/v1.1.0...v1.2.0) (2022-11-26)
