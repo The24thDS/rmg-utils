@@ -17,7 +17,6 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 import { isDNTEnabled } from "./utils/general";
-// import TraitsBuilderTab from "./components/TraitsBuilderTab";
 
 const TraitsBuilderTab = lazy(() => import("./components/TraitsBuilderTab"));
 

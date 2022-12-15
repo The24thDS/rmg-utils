@@ -39,8 +39,8 @@ export default function TraitIconControls({
       <Text size="sm">Icon scale</Text>
       <Slider
         defaultValue={1}
-        min={0.1}
-        step={0.1}
+        min={0.01}
+        step={0.01}
         max={5}
         marks={[
           { value: 1, label: "1x" },
