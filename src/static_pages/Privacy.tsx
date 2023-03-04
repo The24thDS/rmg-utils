@@ -18,7 +18,10 @@ const DNTstatusColor = isDNTEnabled() ? "green" : "red";
 export default function Privacy() {
   return (
     <Container>
-      <Title order={1} sx={(theme) => ({ fontSize: theme.fontSizes.xl * 2.5 })}>
+      <Title
+        order={1}
+        sx={(theme) => ({ fontSize: `calc(${theme.fontSizes.xl} * 2.5)` })}
+      >
         Privacy policy
       </Title>
       <Text my="md" size="xl">
