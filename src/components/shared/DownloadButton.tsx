@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core";
-import { showNotification } from "@mantine/notifications";
+import { notifications } from "@mantine/notifications";
 import { Stage } from "konva/lib/Stage";
 import { useState } from "react";
 import * as Sentry from "@sentry/browser";
@@ -71,7 +71,7 @@ export default function DownloadButton({
           triggerAnalytics(type);
         }
       } catch (e) {
-        showNotification({
+        notifications.show({
           title: "An error occured",
           message:
             "It seems like we ran into an error while generating your trait. We've been notified about this and we will take the necessary measures to fix it. Please wait a few moments before trying again.",

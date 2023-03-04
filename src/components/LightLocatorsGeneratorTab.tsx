@@ -16,13 +16,13 @@ import { isDNTEnabled, netlifyFunctionInvoke } from "../utils/general";
 const gridColums = 12;
 
 export default function LightLocatorsGeneratorTab() {
-  const [locators, setLocators] = useInputState(10);
-  const [stateTime, setStateTime] = useInputState(5);
+  const [locators, setLocators] = useInputState<number | "">(10);
+  const [stateTime, setStateTime] = useInputState<number | "">(5);
   const [generatedLocators, setGeneratedLocators] = useInputState("");
   useDocumentTitle("RMG Utils for Stellaris - Light Locators Generator");
 
   const onGenerateClick = async () => {
-    const result = makeLocators(locators, stateTime);
+    const result = makeLocators(Number(locators || 0), Number(stateTime || 0));
     setGeneratedLocators(result.join("\n"));
     if (!isDNTEnabled()) {
       const body = { locators, stateTime, type: "generate" };

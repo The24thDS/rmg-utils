@@ -7,7 +7,7 @@ import {
   MantineProvider,
   Stack,
 } from "@mantine/core";
-import { NotificationsProvider } from "@mantine/notifications";
+import { Notifications } from "@mantine/notifications";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ROUTES } from "./constants";
@@ -55,50 +55,49 @@ export default function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <NotificationsProvider>
-          <BrowserRouter>
-            <Stack
+        <Notifications />
+        <BrowserRouter>
+          <Stack
+            sx={{
+              minHeight: "100vh",
+            }}
+          >
+            <Header />
+            <Container
+              fluid
+              mt="md"
+              p="sm"
               sx={{
-                minHeight: "100vh",
+                maxWidth: "1200px",
+                width: "100%",
               }}
             >
-              <Header />
-              <Container
-                fluid
-                mt="md"
-                p="sm"
-                sx={{
-                  maxWidth: "1200px",
-                  width: "100%",
-                }}
-              >
-                <Routes>
-                  <Route path={ROUTES.HOME.path} element={<Home />} />
-                  <Route
-                    path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
-                    element={<LightLocatorsGeneratorTab />}
-                  />
-                  <Route
-                    path={ROUTES.TRAITS_BUILDER.path}
-                    element={
-                      <Suspense
-                        fallback={
-                          <Center style={{ height: "300px" }}>
-                            <Loader size="xl" variant="bars" />
-                          </Center>
-                        }
-                      >
-                        <TraitsBuilderTab />
-                      </Suspense>
-                    }
-                  />
-                  <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
-                </Routes>
-              </Container>
-              <Footer />
-            </Stack>
-          </BrowserRouter>
-        </NotificationsProvider>
+              <Routes>
+                <Route path={ROUTES.HOME.path} element={<Home />} />
+                <Route
+                  path={ROUTES.LIGHT_LOCATORS_GENERATOR.path}
+                  element={<LightLocatorsGeneratorTab />}
+                />
+                <Route
+                  path={ROUTES.TRAITS_BUILDER.path}
+                  element={
+                    <Suspense
+                      fallback={
+                        <Center style={{ height: "300px" }}>
+                          <Loader size="xl" variant="bars" />
+                        </Center>
+                      }
+                    >
+                      <TraitsBuilderTab />
+                    </Suspense>
+                  }
+                />
+                <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
+              </Routes>
+            </Container>
+            <Footer />
+          </Stack>
+        </BrowserRouter>
       </MantineProvider>
     </ColorSchemeProvider>
   );
