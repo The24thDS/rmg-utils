@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/The24thDS/rmg-utils/compare/v1.3.1...v1.3.2) (2023-04-28)
+
+
+### Bug Fixes
+
+* fixed failing analytics ([81a0105](https://github.com/The24thDS/rmg-utils/commit/81a010501e79533b6849eb1da824028b03351fb7))
+
 ### [1.3.1](https://github.com/The24thDS/rmg-utils/compare/v1.3.0...v1.3.1) (2022-12-15)
 
 
