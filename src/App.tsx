@@ -27,22 +27,22 @@ export default function App() {
 
   // Analytics script for prod
   useEffect(() => {
-    if (import.meta.env.PROD && !isDNTEnabled()) {
-      const script = document.createElement("script");
+    // if (import.meta.env.PROD && !isDNTEnabled()) {
+    const script = document.createElement("script");
 
-      script.src = "https://athena.david-sima.dev/umami.js";
-      script.async = true;
-      script.defer = true;
-      script.setAttribute(
-        "data-website-id",
-        "2d43657d-0b56-43f0-864a-930b350bacef"
-      );
+    script.src = "https://athena.david-sima.dev/script.js";
+    script.async = true;
+    script.defer = true;
+    script.setAttribute(
+      "data-website-id",
+      "2d43657d-0b56-43f0-864a-930b350bacef"
+    );
 
-      document.body.appendChild(script);
-      return () => {
-        document.body.removeChild(script);
-      };
-    }
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+    // }
   }, []);
 
   return (

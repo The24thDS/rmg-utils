@@ -94,7 +94,6 @@ export default function DownloadButton({
       disabled={isDisabled}
       styles={{ root: { paddingRight: "9px", paddingLeft: "9px" } }}
       onClick={onClick}
-      className={`umami--click--download-trait-${type}`}
     >
       Download {type}
     </Button>

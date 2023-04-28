@@ -128,6 +128,7 @@ export default function TraitsBuilderTab() {
 
   const postAnalytics = async (type: "PNG" | "DDS") => {
     if (!isDNTEnabled()) {
+      window.umami.track(`download-trait-${type}`);
       const body = { type, state };
       try {
         await netlifyFunctionInvoke(

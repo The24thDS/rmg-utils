@@ -25,6 +25,7 @@ export default function LightLocatorsGeneratorTab() {
     const result = makeLocators(Number(locators || 0), Number(stateTime || 0));
     setGeneratedLocators(result.join("\n"));
     if (!isDNTEnabled()) {
+      window.umami.track("Generate light locators button");
       const body = { locators, stateTime, type: "generate" };
       try {
         await netlifyFunctionInvoke(
@@ -44,6 +45,7 @@ export default function LightLocatorsGeneratorTab() {
   const onCopyClick = async (copy: Function) => {
     copy();
     if (!isDNTEnabled()) {
+      window.umami.track("Copy light locators button");
       const body = {
         locators: generatedLocators.split("\n").length,
         stateTime,
@@ -90,12 +92,7 @@ export default function LightLocatorsGeneratorTab() {
               min={1}
               required
             />
-            <Button
-              onClick={onGenerateClick}
-              className="umami--click--generate-light-locators-button"
-            >
-              Generate locators
-            </Button>
+            <Button onClick={onGenerateClick}>Generate locators</Button>
           </Stack>
         </Grid.Col>
         <Grid.Col span={gridColums} lg={8} offsetLg={1}>
@@ -116,7 +113,6 @@ export default function LightLocatorsGeneratorTab() {
                   color={copied ? "teal" : "blue"}
                   onClick={() => onCopyClick(copy)}
                   styles={{ root: { alignSelf: "flex-end" } }}
-                  className="umami--click--copy-light-locators-button"
                 >
                   {copied ? "Done!" : "Copy locators to clipboard"}
                 </Button>

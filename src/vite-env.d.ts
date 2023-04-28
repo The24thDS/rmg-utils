@@ -9,3 +9,7 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+interface Window {
+  umami: { track: (name: string, data?: { [key: string]: any }) => void };
+}
