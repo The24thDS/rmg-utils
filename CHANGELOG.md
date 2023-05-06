@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/The24thDS/rmg-utils/compare/v1.3.2...v1.4.0) (2023-05-06)
+
+
+### Features
+
+* added other tools page ([#2](https://github.com/The24thDS/rmg-utils/issues/2)) ([619e287](https://github.com/The24thDS/rmg-utils/commit/619e287dd7365ff7ddeb19ac712820e5ff5b01ed))
+* added rmg's mods and discord to the footer ([#3](https://github.com/The24thDS/rmg-utils/issues/3)) ([a86813c](https://github.com/The24thDS/rmg-utils/commit/a86813ce730a1d9ba4836f3cd6636a0cf12f2a1e))
+
 ### [1.3.2](https://github.com/The24thDS/rmg-utils/compare/v1.3.1...v1.3.2) (2023-04-28)
 
 
