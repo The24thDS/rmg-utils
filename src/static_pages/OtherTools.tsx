@@ -26,7 +26,6 @@ export default function OtherTools() {
         <List.Item>
           <Anchor
             target="_blank"
-            download=""
             href="https://cdn.discordapp.com/attachments/442565538045100062/1010634192645787688/component_slots.code-snippets"
           >
             component slots code snippets
