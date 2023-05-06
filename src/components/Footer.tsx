@@ -18,6 +18,22 @@ export default function Footer() {
         <Anchor sx={footerLinkStyles} component={Link} to={ROUTES.PRIVACY.path}>
           {ROUTES.PRIVACY.name}
         </Anchor>
+        &bull;
+        <Anchor
+          sx={footerLinkStyles}
+          href="https://steamcommunity.com/workshop/filedetails/?id=2469745470"
+          target="_blank"
+        >
+          RMG's mods collection
+        </Anchor>
+        &bull;
+        <Anchor
+          sx={footerLinkStyles}
+          href="https://discord.gg/4xfQ78sPpm"
+          target="_blank"
+        >
+          RMG's discord server
+        </Anchor>
       </Group>
       <Anchor
         size="sm"
