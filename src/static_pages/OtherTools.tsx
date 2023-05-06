@@ -1,7 +1,5 @@
 import { Anchor, Container, List, Text, Title } from "@mantine/core";
 
-import componentSlotsURL from "../assets/component_slots.code-snippets?url";
-
 export default function OtherTools() {
   return (
     <Container>
@@ -26,7 +24,11 @@ export default function OtherTools() {
           for Stellaris localisation files;
         </List.Item>
         <List.Item>
-          <Anchor target="_blank" download="" href={componentSlotsURL}>
+          <Anchor
+            target="_blank"
+            download=""
+            href="https://cdn.discordapp.com/attachments/442565538045100062/1010634192645787688/component_slots.code-snippets"
+          >
             component slots code snippets
           </Anchor>{" "}
           for VS Code which make writing section templates faster (
