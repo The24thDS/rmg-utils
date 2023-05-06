@@ -9,6 +9,7 @@ const tabs = [
   ROUTES.HOME,
   ROUTES.LIGHT_LOCATORS_GENERATOR,
   ROUTES.TRAITS_BUILDER,
+  ROUTES.OTHER_TOOLS,
 ];
 
 const useStyles = createStyles((theme) => ({

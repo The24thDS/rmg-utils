@@ -17,6 +17,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 import { isDNTEnabled } from "./utils/general";
+import OtherTools from "./static_pages/OtherTools";
 
 const TraitsBuilderTab = lazy(() => import("./components/TraitsBuilderTab"));
 
@@ -27,22 +28,22 @@ export default function App() {
 
   // Analytics script for prod
   useEffect(() => {
-    // if (import.meta.env.PROD && !isDNTEnabled()) {
-    const script = document.createElement("script");
+    if (import.meta.env.PROD && !isDNTEnabled()) {
+      const script = document.createElement("script");
 
-    script.src = "https://athena.david-sima.dev/script.js";
-    script.async = true;
-    script.defer = true;
-    script.setAttribute(
-      "data-website-id",
-      "2d43657d-0b56-43f0-864a-930b350bacef"
-    );
+      script.src = "https://athena.david-sima.dev/script.js";
+      script.async = true;
+      script.defer = true;
+      script.setAttribute(
+        "data-website-id",
+        "2d43657d-0b56-43f0-864a-930b350bacef"
+      );
 
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-    // }
+      document.body.appendChild(script);
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
   }, []);
 
   return (
@@ -93,6 +94,10 @@ export default function App() {
                   }
                 />
                 <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
+                <Route
+                  path={ROUTES.OTHER_TOOLS.path}
+                  element={<OtherTools />}
+                />
               </Routes>
             </Container>
             <Footer />
