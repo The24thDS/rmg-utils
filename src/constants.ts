@@ -15,6 +15,10 @@ export const ROUTES = {
     path: "/privacy",
     name: "Privacy policy",
   },
+  OTHER_TOOLS: {
+    path: "/other-tools",
+    name: "Other tools",
+  },
 };
 
 export enum NetlifyFunctions {
