@@ -18,6 +18,7 @@ import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 import { isDNTEnabled } from "./utils/general";
 import OtherTools from "./static_pages/OtherTools";
+import { GalaxyBuilderTab } from "./components/GalaxyBuilderTab";
 
 const TraitsBuilderTab = lazy(() => import("./components/TraitsBuilderTab"));
 
@@ -90,6 +91,20 @@ export default function App() {
                       }
                     >
                       <TraitsBuilderTab />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path={ROUTES.GALAXY_BUILDER.path}
+                  element={
+                    <Suspense
+                      fallback={
+                        <Center style={{ height: "300px" }}>
+                          <Loader size="xl" variant="bars" />
+                        </Center>
+                      }
+                    >
+                      <GalaxyBuilderTab />
                     </Suspense>
                   }
                 />

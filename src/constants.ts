@@ -11,6 +11,10 @@ export const ROUTES = {
     path: "/traits-builder",
     name: "Traits builder",
   },
+  GALAXY_BUILDER: {
+    path: "/galaxy-builder",
+    name: "Galaxy builder",
+  },
   PRIVACY: {
     path: "/privacy",
     name: "Privacy policy",

@@ -22,15 +22,18 @@
     "@tabler/icons": "^1.78.1",
     "airtable": "^0.11.4",
     "konva": "^8.3.14",
+    "leaflet": "^1.9.4",
     "random": "^3.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-konva": "^18.2.3",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.3.0",
     "tiny-invariant": "^1.2.0",
     "use-image": "^1.1.0"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.3",
     "@types/node": "^18.6.3",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",

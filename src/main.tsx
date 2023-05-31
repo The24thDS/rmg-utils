@@ -4,6 +4,8 @@ import * as Sentry from "@sentry/browser";
 import App from "./App";
 import { getEnvironment } from "./utils/general";
 
+import "leaflet/dist/leaflet.css";
+
 const env = getEnvironment();
 
 if (env !== "development") {
