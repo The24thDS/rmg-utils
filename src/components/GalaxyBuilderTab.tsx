@@ -1,14 +1,20 @@
-import { MapContainer, Marker, Popup, ImageOverlay } from "react-leaflet";
+import { MapContainer, Popup, ImageOverlay, CircleMarker } from "react-leaflet";
 import L from "leaflet";
 
 import background from "../assets/images/galaxycolor.png";
-import blackHole from "../assets/images/black_hole.png";
+
+import { parseData } from "../utils/galaxyBuilder";
 
 export const GalaxyBuilderTab = () => {
+  const systems = parseData();
+
+  console.log(`${systems.size} systems loaded.`);
   return (
     <MapContainer
       center={[0, 0]}
-      zoom={-1.6}
+      zoom={-0.6}
+      zoomSnap={0.1}
+      zoomDelta={0.1}
       maxZoom={10}
       minZoom={-1.7}
       style={{
@@ -23,20 +29,19 @@ export const GalaxyBuilderTab = () => {
       <ImageOverlay
         url={background}
         bounds={[
-          [-1024, -1024],
-          [1024, 1024],
+          [-500, -500],
+          [500, 500],
         ]}
         opacity={0.3}
       />
-      <Marker
-        position={[0, 0]}
-        icon={L.icon({
-          iconUrl: blackHole,
-          iconSize: [30, 30],
-        })}
-      >
-        <Popup>Galactic Center</Popup>
-      </Marker>
+      {Array.from(systems.keys()).map((id) => {
+        const system = systems.get(id);
+        return system ? (
+          <CircleMarker key={id} center={[system.y, system.x]} radius={3}>
+            <Popup>{system.name}</Popup>
+          </CircleMarker>
+        ) : null;
+      })}
     </MapContainer>
   );
 };
