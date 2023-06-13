@@ -37,4 +37,13 @@ describe("System", () => {
     s.name = "New Name";
     expect(s.toString()).toBe(line.replace("Galactic Center", "New Name"));
   });
+  test("it doesn't destroy other information avaliable in the original line", () => {
+    const s = new System(
+      `system = { id = "425" name = "Itani Nebula Aurek" position = { x = -115 y = 145 } effect = { save_global_event_target_as = itani_nebula_aurek_system } }`
+    );
+    s.name = "New Name";
+    expect(s.toString()).toBe(
+      `system = { id = "425" name = "New Name" position = { x = -115 y = 145 } effect = { save_global_event_target_as = itani_nebula_aurek_system } }`
+    );
+  });
 });

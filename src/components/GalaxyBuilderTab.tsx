@@ -1,4 +1,10 @@
-import { MapContainer, Popup, ImageOverlay, CircleMarker } from "react-leaflet";
+import {
+  MapContainer,
+  Popup,
+  ImageOverlay,
+  CircleMarker,
+  Polyline,
+} from "react-leaflet";
 import L from "leaflet";
 
 import background from "../assets/images/galaxycolor.png";
@@ -6,9 +12,10 @@ import background from "../assets/images/galaxycolor.png";
 import { parseData } from "../utils/galaxyBuilder";
 
 export const GalaxyBuilderTab = () => {
-  const systems = parseData();
+  const { systems, hyperlanes } = parseData();
 
-  console.log(`${systems.size} systems loaded.`);
+  console.debug(`${systems.size} systems loaded.`);
+  console.debug(`${hyperlanes.length} hyperlanes loaded.`);
   return (
     <MapContainer
       center={[0, 0]}
@@ -40,6 +47,21 @@ export const GalaxyBuilderTab = () => {
           <CircleMarker key={id} center={[system.y, system.x]} radius={3}>
             <Popup>{system.name}</Popup>
           </CircleMarker>
+        ) : null;
+      })}
+      {hyperlanes.map((hyperlane) => {
+        const source = systems.get(hyperlane.from);
+        const target = systems.get(hyperlane.to);
+        return source && target ? (
+          <Polyline
+            key={hyperlane.id}
+            positions={[
+              [source.y, source.x],
+              [target.y, target.x],
+            ]}
+            color="white"
+            weight={1}
+          />
         ) : null;
       })}
     </MapContainer>
