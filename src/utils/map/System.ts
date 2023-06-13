@@ -20,21 +20,30 @@ export class System {
       this.#id = parseInt(baseMatch.id);
       this.name = baseMatch.name;
     } else {
-      this.#throwConstructorError(line + ` baseMatch`);
+      this.#throwConstructorError(
+        line,
+        "Failed to match baseRegExp. Is this a system line?"
+      );
     }
 
     const xPosMatch = System.xPosRegExp.exec(line)?.groups;
     if (xPosMatch) {
       this.x = parseInt(xPosMatch.x) * -1;
     } else {
-      this.#throwConstructorError(line + ` xPosMatch`);
+      this.#throwConstructorError(
+        line,
+        "Failed to match xPosRegExp. Could not find 'x' value."
+      );
     }
 
     const yPosMatch = System.yPosRegExp.exec(line)?.groups;
     if (yPosMatch) {
       this.y = parseInt(yPosMatch.y) * -1;
     } else {
-      this.#throwConstructorError(line + ` yPosMatch`);
+      this.#throwConstructorError(
+        line,
+        "Failed to match yPosRegExp. Could not find 'y' value."
+      );
     }
 
     const initMatch = System.initRegExp.exec(line)?.groups;
@@ -58,7 +67,9 @@ export class System {
       .replace(System.initRegExp, `initializer = ${this.init}`);
   }
 
-  #throwConstructorError = (line: string) => {
-    throw new Error(`System constructor failed to parse line: ${line}`);
+  #throwConstructorError = (line: string, cause: string) => {
+    throw new Error(`System constructor failed to parse line: "${line}"`, {
+      cause,
+    });
   };
 }
