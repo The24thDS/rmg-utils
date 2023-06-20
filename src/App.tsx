@@ -18,7 +18,7 @@ import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 import { isDNTEnabled } from "./utils/general";
 import OtherTools from "./static_pages/OtherTools";
-import { GalaxyBuilderTab } from "./components/GalaxyBuilderTab";
+import { GalaxyBuilderTab } from "./components/GalaxyBuilderTab/GalaxyBuilderTab";
 
 const TraitsBuilderTab = lazy(() => import("./components/TraitsBuilderTab"));
 

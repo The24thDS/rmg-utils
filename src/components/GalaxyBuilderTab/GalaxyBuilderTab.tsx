@@ -11,9 +11,10 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 
-import background from "../assets/images/galaxycolor.png";
+// TODO: Find a better picture
+import background from "../../assets/images/galaxycolor.png";
 
-import { parseData } from "../utils/galaxyBuilder";
+import { parseData } from "../../utils/galaxyBuilder";
 
 export const GalaxyBuilderTab = () => {
   const { systems, hyperlanes, nebulas } = parseData();
