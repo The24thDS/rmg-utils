@@ -16,7 +16,7 @@ export const traitsBuilderReducer = (
       return {
         ...state,
         bgColor: action.value,
-        bgColorAlt: modifyHSLValue(action.value, { l: -15 }),
+        bgColorAlt: modifyHSLValue(action.value, { s: -5, l: -30 }),
       };
     case "set_iconColor":
       return {
