@@ -8,41 +8,43 @@ interface TraitStageProps {
   state: State;
   traitWidth: number;
   stageRef?: React.RefObject<StageType>;
+  factor?: number;
 }
 
 const TraitStage = (props: TraitStageProps) => {
-  const { state, traitWidth, stageRef } = props;
+  const { state, traitWidth, stageRef, factor = 1 } = props;
+  const width = traitWidth * factor;
   return (
-    <Stage width={traitWidth} height={traitWidth} ref={stageRef}>
+    <Stage width={width} height={width} ref={stageRef}>
       <Layer>
         <Circle
-          x={traitWidth / 2}
-          y={traitWidth / 2}
+          x={width / 2}
+          y={width / 2}
           fillLinearGradientStartPoint={{ x: 0, y: 0 }}
-          fillLinearGradientEndPoint={{ x: 0, y: traitWidth }}
+          fillLinearGradientEndPoint={{ x: 0, y: width }}
           fillLinearGradientColorStops={[
             0,
             state.bgColor,
             0.8,
             state.bgColorAlt,
           ]}
-          radius={traitWidth / 2}
+          radius={width / 2}
         />
       </Layer>
       <Layer>
         <CanvasImage
-          canvasWidth={traitWidth}
+          canvasWidth={width}
           imageURL={state.iconBlobURL}
-          scale={state.iconScale}
-          xOffset={state.iconXOffset}
-          yOffset={state.iconYOffset}
+          scale={state.iconScale * factor}
+          xOffset={state.iconXOffset * factor}
+          yOffset={state.iconYOffset * factor}
         />
         {state.recolorIcon && (
           <Rect
             x={0}
             y={0}
-            width={traitWidth}
-            height={traitWidth}
+            width={width}
+            height={width}
             fill={state.iconColor}
             globalCompositeOperation="source-in"
           />

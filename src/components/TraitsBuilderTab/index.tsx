@@ -1,4 +1,4 @@
-import { Grid, SimpleGrid, Stack, Text, TextInput } from "@mantine/core";
+import { Flex, Grid, SimpleGrid, Stack, Text, TextInput } from "@mantine/core";
 import { useCallback, useReducer, useRef } from "react";
 import * as Sentry from "@sentry/browser";
 import {
@@ -39,7 +39,7 @@ const INITIAL_STATE: State = {
 export default function TraitsBuilderTab() {
   useDocumentTitle("RMG Utils for Stellaris - Traits Builder");
   const [state, dispatch] = useReducer(traitsBuilderReducer, INITIAL_STATE);
-  const stageRef = useRef<StageType>(null);
+  const mainStageRef = useRef<StageType>(null);
 
   const iconRef = useCallback(
     (node: HTMLImageElement) => {
@@ -91,20 +91,32 @@ export default function TraitsBuilderTab() {
                 }
               />
               <Text size="sm">Preview</Text>
-              <TraitStage
-                state={state}
-                traitWidth={TRAIT_WIDTH}
-                stageRef={stageRef}
-              />
+              <Flex justify="space-between" align="center">
+                <TraitStage
+                  state={state}
+                  traitWidth={TRAIT_WIDTH}
+                  stageRef={mainStageRef}
+                />
+                <TraitStage
+                  state={state}
+                  traitWidth={TRAIT_WIDTH}
+                  factor={1.5}
+                />
+                <TraitStage
+                  state={state}
+                  traitWidth={TRAIT_WIDTH}
+                  factor={2.0}
+                />
+              </Flex>
               <DownloadButton
                 type="PNG"
-                stage={stageRef.current}
+                stage={mainStageRef.current}
                 name={state.name}
                 triggerAnalytics={postAnalytics}
               />
               <DownloadButton
                 type="DDS"
-                stage={stageRef.current}
+                stage={mainStageRef.current}
                 name={state.name}
                 triggerAnalytics={postAnalytics}
               />
