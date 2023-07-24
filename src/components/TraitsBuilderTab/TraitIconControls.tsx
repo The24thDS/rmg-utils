@@ -1,25 +1,13 @@
-import { Text, Switch, Slider } from "@mantine/core";
-import { TraitStateActionType } from ".";
+import { Switch, NumberInput, Flex } from "@mantine/core";
+import { TraitStateActionType } from "./index.d";
 
 interface TraitIconControlsProps {
   recolorIcon: boolean;
-  iconScale: number;
-  iconXOffset: number;
-  iconYOffset: number;
   dispatch: (props: { type: TraitStateActionType; value: any }) => void;
 }
 
-const OFFSET_MARKERS = [
-  { value: -30, label: "-30" },
-  { value: 0, label: "0" },
-  { value: 30, label: "30" },
-];
-
 export default function TraitIconControls({
   recolorIcon,
-  iconScale,
-  iconXOffset,
-  iconYOffset,
   dispatch,
 }: TraitIconControlsProps) {
   return (
@@ -36,49 +24,46 @@ export default function TraitIconControls({
         onLabel="ON"
         offLabel="OFF"
       />
-      <Text size="sm">Icon scale</Text>
-      <Slider
+      <NumberInput
+        label="Scale"
         defaultValue={1}
-        min={0.01}
-        step={0.01}
-        max={5}
-        marks={[
-          { value: 1, label: "1x" },
-          { value: 5, label: "5x" },
-        ]}
-        value={iconScale}
-        onChange={(v) =>
-          dispatch({ type: "set_iconScale", value: Number(v.toFixed(2)) })
-        }
-      />
-      <Text size="sm" mt="sm">
-        Icon X offset
-      </Text>
-      <Slider
-        defaultValue={0}
-        min={-30}
+        onChange={(v) => {
+          if (v !== "") {
+            dispatch({ type: "set_iconScale", value: v });
+          }
+        }}
+        precision={3}
         step={0.1}
-        max={30}
-        marks={OFFSET_MARKERS}
-        value={iconXOffset}
-        onChange={(v) =>
-          dispatch({ type: "set_iconXOffset", value: Number(v.toFixed(2)) })
-        }
+        min={0.001}
+        stepHoldDelay={500}
+        stepHoldInterval={100}
       />
-      <Text size="sm" mt="sm">
-        Icon Y offset
-      </Text>
-      <Slider
-        defaultValue={0}
-        min={-30}
-        step={0.1}
-        max={30}
-        marks={OFFSET_MARKERS}
-        value={iconYOffset}
-        onChange={(v) =>
-          dispatch({ type: "set_iconYOffset", value: Number(v.toFixed(2)) })
-        }
-      />
+      <Flex gap={8}>
+        <NumberInput
+          label="X offset"
+          defaultValue={0}
+          onChange={(v) => {
+            if (v !== "") {
+              dispatch({ type: "set_iconXOffset", value: v });
+            }
+          }}
+          precision={1}
+          stepHoldDelay={500}
+          stepHoldInterval={100}
+        />
+        <NumberInput
+          label="Y offset"
+          defaultValue={0}
+          onChange={(v) => {
+            if (v !== "") {
+              dispatch({ type: "set_iconYOffset", value: v });
+            }
+          }}
+          precision={1}
+          stepHoldDelay={500}
+          stepHoldInterval={100}
+        />
+      </Flex>
     </>
   );
 }

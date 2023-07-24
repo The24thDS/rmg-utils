@@ -137,9 +137,6 @@ export default function TraitsBuilderTab() {
               </Stack>
               <TraitIconControls
                 recolorIcon={state.recolorIcon}
-                iconScale={state.iconScale}
-                iconXOffset={state.iconXOffset}
-                iconYOffset={state.iconYOffset}
                 dispatch={dispatch}
               />
             </Stack>
