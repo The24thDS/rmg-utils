@@ -1,47 +1,27 @@
 import { Grid, SimpleGrid, Stack, Text, TextInput } from "@mantine/core";
 import { useCallback, useReducer, useRef } from "react";
-import { Stage, Layer, Circle, Rect } from "react-konva";
 import * as Sentry from "@sentry/browser";
 import {
   isDNTEnabled,
   modifyHSLValue,
   netlifyFunctionInvoke,
-} from "../utils/general";
-import ColorPickerElement from "./shared/ColorPickerElement";
-import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from "@mantine/dropzone";
-import ImagePreview from "./shared/ImagePreview";
-import CanvasImage from "./shared/CanvasImage";
+} from "../../utils/general";
+import ColorPickerElement from "../shared/ColorPickerElement";
+import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import ImagePreview from "../shared/ImagePreview";
 import { useDocumentTitle } from "@mantine/hooks";
-import DownloadButton from "./shared/DownloadButton";
+import DownloadButton from "../shared/DownloadButton";
 import { Stage as StageType } from "konva/lib/Stage";
 import TraitIconControls from "./TraitIconControls";
-import { NetlifyFunctions } from "../constants";
+import { NetlifyFunctions } from "../../constants";
+import TraitStage from "./TraitStage";
+import {
+  traitsBackgroundColors,
+  traitsBuilderReducer,
+} from "./traits-builder.utils";
+import { State } from "./index.d";
 
 const TRAIT_WIDTH = 29;
-
-export interface State {
-  name: string;
-  bgColor: string;
-  bgColorAlt: string;
-  iconColor: string;
-  files: FileWithPath[];
-  iconBlobURL: null | string;
-  recolorIcon: boolean;
-  iconScale: number;
-  iconXOffset: number;
-  iconYOffset: number;
-}
-
-export type TraitStateActionType =
-  | "set_name"
-  | "set_bgColor"
-  | "set_iconColor"
-  | "set_files"
-  | "set_iconBlobURL"
-  | "set_recolorIcon"
-  | "set_iconScale"
-  | "set_iconXOffset"
-  | "set_iconYOffset";
 
 const INITIAL_STATE: State = {
   name: "",
@@ -56,65 +36,9 @@ const INITIAL_STATE: State = {
   iconYOffset: 0,
 };
 
-const reducer = (
-  state: State,
-  action: { type: TraitStateActionType; value: any }
-): State => {
-  switch (action.type) {
-    case "set_name":
-      return {
-        ...state,
-        name: action.value,
-      };
-    case "set_bgColor":
-      return {
-        ...state,
-        bgColor: action.value,
-        bgColorAlt: modifyHSLValue(action.value, { l: -15 }),
-      };
-    case "set_iconColor":
-      return {
-        ...state,
-        iconColor: action.value,
-      };
-    case "set_files":
-      return {
-        ...state,
-        files: action.value,
-      };
-    case "set_iconBlobURL":
-      return {
-        ...state,
-        iconBlobURL: action.value,
-      };
-    case "set_recolorIcon":
-      return {
-        ...state,
-        recolorIcon: action.value,
-      };
-    case "set_iconScale":
-      return {
-        ...state,
-        iconScale: action.value,
-      };
-    case "set_iconXOffset":
-      return {
-        ...state,
-        iconXOffset: action.value,
-      };
-    case "set_iconYOffset":
-      return {
-        ...state,
-        iconYOffset: action.value,
-      };
-    default:
-      return state;
-  }
-};
-
 export default function TraitsBuilderTab() {
   useDocumentTitle("RMG Utils for Stellaris - Traits Builder");
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(traitsBuilderReducer, INITIAL_STATE);
   const stageRef = useRef<StageType>(null);
 
   const iconRef = useCallback(
@@ -167,42 +91,11 @@ export default function TraitsBuilderTab() {
                 }
               />
               <Text size="sm">Preview</Text>
-              <Stage width={TRAIT_WIDTH} height={TRAIT_WIDTH} ref={stageRef}>
-                <Layer>
-                  <Circle
-                    x={TRAIT_WIDTH / 2}
-                    y={TRAIT_WIDTH / 2}
-                    fillLinearGradientStartPoint={{ x: 0, y: 0 }}
-                    fillLinearGradientEndPoint={{ x: 0, y: TRAIT_WIDTH }}
-                    fillLinearGradientColorStops={[
-                      0,
-                      state.bgColor,
-                      0.8,
-                      state.bgColorAlt,
-                    ]}
-                    radius={TRAIT_WIDTH / 2}
-                  />
-                </Layer>
-                <Layer>
-                  <CanvasImage
-                    canvasWidth={TRAIT_WIDTH}
-                    imageURL={state.iconBlobURL}
-                    scale={state.iconScale}
-                    xOffset={state.iconXOffset}
-                    yOffset={state.iconYOffset}
-                  />
-                  {state.recolorIcon && (
-                    <Rect
-                      x={0}
-                      y={0}
-                      width={TRAIT_WIDTH}
-                      height={TRAIT_WIDTH}
-                      fill={state.iconColor}
-                      globalCompositeOperation="source-in"
-                    />
-                  )}
-                </Layer>
-              </Stage>
+              <TraitStage
+                state={state}
+                traitWidth={TRAIT_WIDTH}
+                stageRef={stageRef}
+              />
               <DownloadButton
                 type="PNG"
                 stage={stageRef.current}
@@ -246,20 +139,7 @@ export default function TraitsBuilderTab() {
               label="Background color"
               value={state.bgColor}
               setValue={(v) => dispatch({ type: "set_bgColor", value: v })}
-              swatches={[
-                "hsl(350, 94%, 42%)",
-                "hsl(177, 91%, 43%)",
-                "hsl(166, 100%, 41%)",
-                "hsl(43, 94%, 57%)",
-                "hsl(94, 56%, 41%)",
-                "hsl(221, 66%, 51%)",
-                "hsl(180, 38%, 50%)",
-                "hsl(127, 44%, 44%)",
-                "hsl(199, 69%, 50%)",
-                "hsl(268, 87%, 57%)",
-                "hsl(34, 69%, 50%)",
-                "hsl(0, 3%, 61%)",
-              ]}
+              swatches={traitsBackgroundColors}
               swatchesPerRow={6}
             />
             <ColorPickerElement

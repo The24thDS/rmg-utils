@@ -1,5 +1,5 @@
 import { Text, Switch, Slider } from "@mantine/core";
-import { TraitStateActionType } from "./TraitsBuilderTab";
+import { TraitStateActionType } from ".";
 
 interface TraitIconControlsProps {
   recolorIcon: boolean;
