@@ -1,11 +1,22 @@
 import { Anchor, CSSObject, Group, MantineTheme, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../constants";
+import semver from "semver";
 
 const footerLinkStyles = (theme: MantineTheme): CSSObject => ({
   color:
     theme.colorScheme === "light" ? theme.colors.dark[5] : theme.colors.dark[0],
 });
+const version = semver.parse(APP_VERSION);
+const isDirty = version?.build.includes("SNAPSHOT");
+const commitHash = version?.build[1];
+const VersionElement = isDirty ? Text : Anchor;
+const versionLink = commitHash
+  ? `https://github.com/The24thDS/rmg-utils/commit/${commitHash}`
+  : `https://github.com/The24thDS/rmg-utils/releases/tag/v${APP_VERSION}`;
+const versionElementProps = isDirty
+  ? {}
+  : { href: versionLink, target: "_blank", rel: "noopener noreferrer" };
 
 export default function Footer() {
   return (
@@ -35,15 +46,9 @@ export default function Footer() {
           RMG's discord server
         </Anchor>
       </Group>
-      <Anchor
-        size="sm"
-        color={"dimmed"}
-        href={`https://github.com/The24thDS/rmg-utils/releases/tag/v${APP_VERSION}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <VersionElement size="sm" color="dimmed" {...versionElementProps}>
         Version: {APP_VERSION}
-      </Anchor>
+      </VersionElement>
     </Group>
   );
 }
