@@ -8,6 +8,7 @@ import {
   Title,
 } from "@mantine/core";
 import { dateFormatter, isDNTEnabled } from "../utils/general";
+import { useCustomDocumentTitle } from "../hooks";
 
 const PRIVACY_POLICY_LAST_UPDATE = new Date("2022-09-03");
 const CONTACT_EMAIL = "renegades.modding.group@gmail.com";
@@ -16,6 +17,7 @@ const DNTstatus = isDNTEnabled() ? "ENABLED" : "DISABLED";
 const DNTstatusColor = isDNTEnabled() ? "green" : "red";
 
 export default function Privacy() {
+  useCustomDocumentTitle("Privacy Policy");
   return (
     <Container>
       <Title

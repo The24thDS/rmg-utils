@@ -9,7 +9,6 @@ import {
 import ColorPickerElement from "../shared/ColorPickerElement";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import ImagePreview from "../shared/ImagePreview";
-import { useDocumentTitle } from "@mantine/hooks";
 import DownloadButton from "../shared/DownloadButton";
 import { Stage as StageType } from "konva/lib/Stage";
 import TraitIconControls from "./TraitIconControls";
@@ -20,6 +19,7 @@ import {
   traitsBuilderReducer,
 } from "./traits-builder.utils";
 import { State } from "./index.d";
+import { useCustomDocumentTitle } from "../../hooks";
 
 const TRAIT_WIDTH = 29;
 
@@ -37,7 +37,7 @@ const INITIAL_STATE: State = {
 };
 
 export default function TraitsBuilderTab() {
-  useDocumentTitle("RMG Utils for Stellaris - Traits Builder");
+  useCustomDocumentTitle("Traits Builder");
   const [state, dispatch] = useReducer(traitsBuilderReducer, INITIAL_STATE);
   const mainStageRef = useRef<StageType>(null);
 

@@ -7,11 +7,12 @@ import {
   Text,
   Textarea,
 } from "@mantine/core";
-import { useDocumentTitle, useInputState } from "@mantine/hooks";
+import { useInputState } from "@mantine/hooks";
 import * as Sentry from "@sentry/browser";
 import { NetlifyFunctions } from "../constants";
 import { makeLocators } from "../utils/factories";
 import { isDNTEnabled, netlifyFunctionInvoke } from "../utils/general";
+import { useCustomDocumentTitle } from "../hooks";
 
 const gridColums = 12;
 
@@ -19,7 +20,7 @@ export default function LightLocatorsGeneratorTab() {
   const [locators, setLocators] = useInputState<number | "">(10);
   const [stateTime, setStateTime] = useInputState<number | "">(5);
   const [generatedLocators, setGeneratedLocators] = useInputState("");
-  useDocumentTitle("RMG Utils for Stellaris - Light Locators Generator");
+  useCustomDocumentTitle("Light Locators Generator");
 
   const onGenerateClick = async () => {
     const result = makeLocators(Number(locators || 0), Number(stateTime || 0));
