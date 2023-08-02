@@ -1,6 +1,8 @@
 import { Anchor, Container, List, Text, Title } from "@mantine/core";
+import { useCustomDocumentTitle } from "../hooks";
 
 export default function OtherTools() {
+  useCustomDocumentTitle("Other Tools");
   return (
     <Container>
       <Title order={3} my="sm">
