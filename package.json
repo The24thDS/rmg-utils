@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "npm_package_version=$(absolute-version-from-git-tag) vite",
     "prebuild": "cp magick.js public/assets/magick.js && cp magick.wasm public/assets/magick.wasm",
-    "build": "tsc && vite build",
+    "build": "tsc && npm_package_version=$(absolute-version-from-git-tag) vite build",
     "postbuild": "rm public/assets/magick.js public/assets/magick.wasm",
     "preview": "vite preview",
-    "release": "npx standard-version",
     "functions": "npx env-cmd -f ./.env.local netlify functions:serve"
   },
   "dependencies": {

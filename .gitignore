@@ -26,3 +26,7 @@ dev-dist
 
 # Local Netlify folder
 .netlify
+
+
+public/assets/magick.js
+public/assets/magick.wasm
