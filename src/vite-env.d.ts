@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 declare const APP_VERSION: string;
+declare const ENVIRONMENT: "local" | "dev" | "stage" | "production";
 
 interface ImportMetaEnv {
   readonly VITE_NETLIFY_FUNCTIONS_LOCAL_SERVER: string;
