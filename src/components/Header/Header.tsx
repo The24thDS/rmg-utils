@@ -1,4 +1,12 @@
-import { createStyles, Group, Image, Stack, Tabs, Text } from "@mantine/core";
+import {
+  Badge,
+  createStyles,
+  Group,
+  Image,
+  Stack,
+  Tabs,
+  Text,
+} from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { ROUTES } from "../../constants";
@@ -11,6 +19,14 @@ const tabs = [
   ROUTES.TRAITS_BUILDER,
   ROUTES.OTHER_TOOLS,
 ];
+
+const isProd = ENVIRONMENT === "production";
+
+const BADGE_COLOR_MAP = {
+  local: "pink",
+  dev: "orange",
+  stage: "cyan",
+};
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -52,6 +68,11 @@ export default function Header() {
             <Text size="xl" weight={700}>
               RMG Utils for Stellaris
             </Text>
+            {!isProd && (
+              <Badge color={BADGE_COLOR_MAP[ENVIRONMENT]} variant="outline">
+                {ENVIRONMENT}
+              </Badge>
+            )}
           </Group>
           <ColorSchemeTogle />
         </Group>
