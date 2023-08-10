@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import { versionFromGitTag } from "absolute-version";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -45,6 +46,6 @@ export default defineConfig({
     }),
   ],
   define: {
-    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+    APP_VERSION: JSON.stringify(versionFromGitTag()),
   },
 });

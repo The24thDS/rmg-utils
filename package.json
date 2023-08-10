@@ -3,9 +3,9 @@
   "private": true,
   "version": "1.4.0",
   "scripts": {
-    "dev": "npm_package_version=$(absolute-version-from-git-tag) vite",
+    "dev": "vite",
     "prebuild": "cp magick.js public/assets/magick.js && cp magick.wasm public/assets/magick.wasm",
-    "build": "tsc && npm_package_version=$(absolute-version-from-git-tag) vite build",
+    "build": "tsc && vite build",
     "postbuild": "rm public/assets/magick.js public/assets/magick.wasm",
     "preview": "vite preview",
     "functions": "npx env-cmd -f ./.env.local netlify functions:serve"
