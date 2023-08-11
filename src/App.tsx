@@ -20,6 +20,7 @@ import { isDNTEnabled } from "./utils/general";
 import OtherTools from "./static_pages/OtherTools";
 
 const TraitsBuilderTab = lazy(() => import("./components/TraitsBuilderTab"));
+const UnusedDDSFinderTab = lazy(() => import("./components/UnusedDDSFinder"));
 
 export default function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
@@ -95,7 +96,17 @@ export default function App() {
                 />
                 <Route
                   path={ROUTES.UNUSED_DDS_FINDER.path}
-                  element={<p>here</p>}
+                  element={
+                    <Suspense
+                      fallback={
+                        <Center style={{ height: "300px" }}>
+                          <Loader size="xl" variant="bars" />
+                        </Center>
+                      }
+                    >
+                      <UnusedDDSFinderTab />
+                    </Suspense>
+                  }
                 />
                 <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
                 <Route
