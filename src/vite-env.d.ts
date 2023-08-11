@@ -22,6 +22,7 @@ interface ImportMeta {
 
 interface Window {
   umami: { track: (name: string, data?: { [key: string]: any }) => void };
+  showDirectoryPicker?: () => Promise<FileSystemDirectoryHandle>;
 }
 
 interface WindowEventMap {
