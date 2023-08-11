@@ -67,3 +67,5 @@ export const modifyHSLValue = (value: string, changes: HSLValue) => {
   l += changes.l ?? 0;
   return `hsl(${h}, ${s}%, ${l}%)`;
 };
+
+export const isAnalyticsEnabled = import.meta.env.PROD && !isDNTEnabled();

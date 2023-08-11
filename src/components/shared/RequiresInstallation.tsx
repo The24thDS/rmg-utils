@@ -1,17 +1,10 @@
 import { ReactNode } from "react";
-import {
-  createStyles,
-  Text,
-  Title,
-  Button,
-  Image,
-  rem,
-  Center,
-} from "@mantine/core";
+import { createStyles, Text, Title, Image, rem, Center } from "@mantine/core";
 
 import { useIsInstalled } from "../../hooks";
 
 import image from "../../assets/images/undraw_progressive_app.svg";
+import { InstallApplicationButton } from "./InstallApplicationButton";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -82,7 +75,9 @@ function Banner() {
         </Text>
 
         <div className={classes.controls}>
-          <Button className={classes.control}>Install application</Button>
+          <InstallApplicationButton className={classes.control}>
+            Install application
+          </InstallApplicationButton>
         </div>
       </div>
       <Image src={image} className={classes.image} />
