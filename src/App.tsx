@@ -93,6 +93,10 @@ export default function App() {
                     </Suspense>
                   }
                 />
+                <Route
+                  path={ROUTES.UNUSED_DDS_FINDER.path}
+                  element={<p>here</p>}
+                />
                 <Route path={ROUTES.PRIVACY.path} element={<Privacy />} />
                 <Route
                   path={ROUTES.OTHER_TOOLS.path}

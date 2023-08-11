@@ -11,6 +11,10 @@ export const ROUTES = {
     path: "/traits-builder",
     name: "Traits builder",
   },
+  UNUSED_DDS_FINDER: {
+    path: "/unused-dds-finder",
+    name: "Unused DDS finder",
+  },
   PRIVACY: {
     path: "/privacy",
     name: "Privacy policy",
