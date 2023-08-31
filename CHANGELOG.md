@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.1](https://github.com/The24thDS/rmg-utils/compare/v1.5.0...v1.5.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* fixed "prod" not being detected as production env ([f8a1cbc](https://github.com/The24thDS/rmg-utils/commit/f8a1cbc9f3ab17e5a0caf370a9d7ee9b41f035b4))
+
 ## [1.5.0](https://github.com/The24thDS/rmg-utils/compare/v1.4.0...v1.5.0) (2023-08-10)
 
 
