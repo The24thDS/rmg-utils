@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 declare const APP_VERSION: string;
-declare const ENVIRONMENT: "local" | "dev" | "stage" | "production";
+declare const ENVIRONMENT: "local" | "dev" | "stage" | "prod";
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[];

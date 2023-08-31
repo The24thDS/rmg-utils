@@ -7,12 +7,12 @@ const env =
 
 const PWA_TITLE_MAP = {
   local: "RMG Utils (local)",
-  production: "RMG Utilities for Stellaris",
+  prod: "RMG Utilities for Stellaris",
   stage: "RMG Utils (stage)",
   dev: "RMG Utils (dev)",
 };
 
-const PWA_ICONS_TYPE = env === "production" ? "" : "_" + env;
+const PWA_ICONS_TYPE = env === "prod" ? "" : "_" + env;
 
 // https://vitejs.dev/config/
 export default defineConfig({

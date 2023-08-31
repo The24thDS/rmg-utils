@@ -21,7 +21,7 @@ const tabs = [
   ROUTES.OTHER_TOOLS,
 ];
 
-const isProd = ENVIRONMENT === "production";
+const isProd = ENVIRONMENT === "prod";
 
 const BADGE_COLOR_MAP = {
   local: "pink",
