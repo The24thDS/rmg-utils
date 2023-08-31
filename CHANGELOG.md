@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/The24thDS/rmg-utils/compare/v1.4.0...v1.5.0) (2023-08-10)
+
+
+### Features
+
+* added different document titles if the app is installed ([#5](https://github.com/The24thDS/rmg-utils/issues/5)) ([3cc45d6](https://github.com/The24thDS/rmg-utils/commit/3cc45d6e6de9e67967fa4761ad737d89369ce2bb))
+* **TraitsBuilder:** added two more dimensions for trait preview (44 and 58) ([cc18cf0](https://github.com/The24thDS/rmg-utils/commit/cc18cf05dca0005f6379c923c17fd6f77528df58))
+* **TraitsBuilder:** changed scale and offset sliders to number inputs ([7418524](https://github.com/The24thDS/rmg-utils/commit/7418524ea4d4ad6cf7e360bb3c2d39e7d8b85307))
+
+
+### Bug Fixes
+
+* **TraitsBuilder:** adjusted background gradient stop color ([2a8aa37](https://github.com/The24thDS/rmg-utils/commit/2a8aa37769955e56f456577ffebea9e715c3538f))
+
 ## [1.4.0](https://github.com/The24thDS/rmg-utils/compare/v1.3.2...v1.4.0) (2023-05-06)
 
 
