@@ -20,7 +20,7 @@ const tabs = [
   ROUTES.OTHER_TOOLS,
 ];
 
-const isProd = ENVIRONMENT === "prod";
+const isProd = RUNTIME_ENV === "prod";
 
 const BADGE_COLOR_MAP = {
   local: "pink",
@@ -69,8 +69,8 @@ export default function Header() {
               RMG Utils for Stellaris
             </Text>
             {!isProd && (
-              <Badge color={BADGE_COLOR_MAP[ENVIRONMENT]} variant="outline">
-                {ENVIRONMENT}
+              <Badge color={BADGE_COLOR_MAP[RUNTIME_ENV]} variant="outline">
+                {RUNTIME_ENV}
               </Badge>
             )}
           </Group>

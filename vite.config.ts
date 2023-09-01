@@ -2,8 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
-const env =
-  process.env.NODE_ENV === "development" ? "local" : process.env.NODE_ENV;
+const env = process.env.RUNTIME_ENV ?? "local";
 
 const PWA_TITLE_MAP = {
   local: "RMG Utils (local)",
@@ -58,6 +57,6 @@ export default defineConfig({
   ],
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
-    ENVIRONMENT: JSON.stringify(env),
+    RUNTIME_ENV: JSON.stringify(env),
   },
 });
