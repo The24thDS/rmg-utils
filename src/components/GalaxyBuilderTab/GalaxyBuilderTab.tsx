@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useSetAtom } from "jotai";
-import { Button, Grid, Stack } from "@mantine/core";
+import { Button, Grid, Group, Stack } from "@mantine/core";
 
 import { GalaxyMap } from "./GalaxyMap";
 import { parseData } from "../../utils/galaxyBuilder";
 import { nebulasAtom } from "../../store/nebulas.store";
+import { ItemForm } from "./ItemForm";
 
 const gridColums = 12;
 
@@ -23,13 +24,8 @@ const LoadGalaxyButton = () => {
   };
 
   return (
-    <Button
-      variant="light"
-      color="blue"
-      loading={isLoading}
-      onClick={handleClick}
-    >
-      Load Galaxy
+    <Button variant="outline" loading={isLoading} onClick={handleClick}>
+      Load galaxy
     </Button>
   );
 };
@@ -37,16 +33,23 @@ const LoadGalaxyButton = () => {
 export const GalaxyBuilderTab = () => {
   return (
     <Grid columns={gridColums}>
-      <Grid.Col span={gridColums} sm={3}>
+      <Grid.Col span={gridColums} lg={7}>
+        <GalaxyMap />
+      </Grid.Col>
+      <Grid.Col span={gridColums} sm={5}>
         <Stack>
-          <LoadGalaxyButton />
+          <Group grow>
+            <Button disabled>New galaxy</Button>
+            <LoadGalaxyButton />
+            <Button variant="outline" disabled>
+              Save galaxy
+            </Button>
+          </Group>
+          <ItemForm />
           {/* TODO: Add system controls: Add, Delete, Move */}
           {/* TODO: Add hyperlane controls: Add, Delete */}
           {/* TODO: Add nebula controls: Add, Delete, Move */}
         </Stack>
-      </Grid.Col>
-      <Grid.Col span={gridColums} lg={8} offsetLg={1}>
-        <GalaxyMap />
       </Grid.Col>
     </Grid>
   );

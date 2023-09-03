@@ -15,9 +15,10 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.3",
+    "@emotion/react": "^11.11.1",
     "@mantine/core": "^6.0.0",
     "@mantine/dropzone": "^6.0.0",
+    "@mantine/form": "^6.0.19",
     "@mantine/hooks": "^6.0.0",
     "@mantine/notifications": "^6.0.0",
     "@netlify/functions": "^1.0.0",
@@ -25,6 +26,7 @@
     "@tabler/icons": "^1.78.1",
     "airtable": "^0.11.4",
     "jotai": "^2.4.1",
+    "jotai-devtools": "^0.6.2",
     "konva": "^8.3.14",
     "leaflet": "^1.9.4",
     "random": "^3.0.6",

@@ -6,7 +6,6 @@ export const useMapDragging = <T extends L.Circle>(
   onMove: (lat: number, lng: number) => void
 ): RefObject<T> => {
   const ref = useRef<T>(null);
-  const popupRef = useRef<any>(null);
   const map = useMap();
 
   useEffect(() => {
@@ -15,9 +14,6 @@ export const useMapDragging = <T extends L.Circle>(
       if (!ref.current) return;
       ref.current.on("mousemove", (e) => {
         if (!ref.current) return;
-        if (!popupRef.current) {
-          popupRef.current = ref.current.getPopup();
-        }
         ref.current.unbindPopup();
         map.dragging.disable();
         const { lat, lng } = e.latlng;
@@ -31,10 +27,6 @@ export const useMapDragging = <T extends L.Circle>(
       map.dragging.enable();
       if (!ref.current) return;
       ref.current.off("mousemove");
-      setTimeout(() => {
-        if (!ref.current) return;
-        ref.current.bindPopup(popupRef.current as L.Popup);
-      }, 0);
     });
   }, [map.dragging, onMove]);
 

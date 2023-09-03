@@ -8,6 +8,7 @@ import {
   Stack,
 } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+import { DevTools } from "jotai-devtools";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ROUTES } from "./constants";
@@ -57,6 +58,7 @@ export default function App() {
         withGlobalStyles
         withNormalizeCSS
       >
+        <DevTools />
         <Notifications />
         <BrowserRouter>
           <Stack
