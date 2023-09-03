@@ -1,18 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Popup, Circle, useMap } from "react-leaflet";
-import { useDebouncedCallback } from "use-debounce";
-import {
-  Button,
-  Group,
-  MantineProvider,
-  NumberInput,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
-
+import { Circle, useMap } from "react-leaflet";
 import { PrimitiveAtom, useAtom } from "jotai";
-import { Nebula } from "../../utils/map/Nebula";
+import { useDebouncedCallback } from "use-debounce";
+
+import { Nebula } from "../../../utils/map/Nebula";
 
 export const NebulaMarker = ({
   nebulaAtom,

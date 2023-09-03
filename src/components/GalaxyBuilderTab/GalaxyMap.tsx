@@ -14,7 +14,7 @@ import { Text, Title } from "@mantine/core";
 import { System } from "../../utils/map/System";
 import { Hyperlane } from "../../utils/map/Hyperlane";
 
-import { NebulaMarker } from "./NebulaMarker";
+import { NebulaMarker } from "./Nebula/NebulaMarker";
 
 // TODO: Find a better picture
 import background from "../../assets/images/galaxycolor.png";
