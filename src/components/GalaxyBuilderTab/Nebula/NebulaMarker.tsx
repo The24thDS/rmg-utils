@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Circle } from "react-leaflet";
+import { Circle, Popup } from "react-leaflet";
 import { PrimitiveAtom, useAtom } from "jotai";
 import { useDebouncedCallback } from "use-debounce";
+import { Button, Text, Title } from "@mantine/core";
 
 import { Nebula } from "../../../utils/map/Nebula";
 import { useMapDragging } from "../../../hooks/useMapHooks";
@@ -12,7 +13,6 @@ export const NebulaMarker = ({
   nebulaAtom: PrimitiveAtom<Nebula>;
 }) => {
   const [nebula, setNebula] = useAtom(nebulaAtom);
-  console.log(nebula);
   const [isEditing, setIsEditing] = useState(false);
 
   const updateNebulaCoords = useDebouncedCallback(
@@ -39,59 +39,24 @@ export const NebulaMarker = ({
       pathOptions={{ color: "purple" }}
       ref={ref}
     >
-      {/* <Popup
+      <Popup
         pane="popups"
         minWidth={180}
         maxWidth={500}
         interactive
         closeOnClick={false}
       >
-        {isEditing ? (
-          <MantineProvider theme={{ colorScheme: "light" }}>
-            <TextInput label="id" disabled defaultValue={nebula.id} />
-            <TextInput label="name" defaultValue={nebula.name} />
-            <Group spacing="xs" grow>
-              <NumberInput
-                label="x"
-                defaultValue={nebula.x}
-                style={{ width: "80px" }}
-                max={500}
-                min={-500}
-              />
-              <NumberInput
-                label="y"
-                defaultValue={nebula.y}
-                style={{ width: "80px" }}
-                max={500}
-                min={-500}
-              />
-            </Group>
-            <Group>
-              <Button size="xs" onClick={() => setIsEditing(false)}>
-                Save
-              </Button>
-              <Button
-                size="xs"
-                variant="subtle"
-                onClick={() => setIsEditing(false)}
-              >
-                Cancel
-              </Button>
-            </Group>
-          </MantineProvider>
-        ) : (
-          <>
-            <Text size="xs">id: {nebula.id}</Text>
-            <Title order={5}>{nebula.name}</Title>
-            <Text size="sm">
-              x: {nebula.x} | y: {nebula.y}
-            </Text>
-            <Button size="xs" onClick={() => setIsEditing(true)}>
-              Edit
-            </Button>
-          </>
-        )}
-      </Popup> */}
+        <>
+          <Text size="xs">id: {nebula.id}</Text>
+          <Title order={5}>{nebula.name}</Title>
+          <Text size="sm">
+            x: {nebula.x} | y: {nebula.y}
+          </Text>
+          <Button size="xs" onClick={() => setIsEditing(true)}>
+            Edit
+          </Button>
+        </>
+      </Popup>
     </Circle>
   ) : null;
 };
