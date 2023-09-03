@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { Circle, useMap } from "react-leaflet";
+import { useState } from "react";
+import { Circle } from "react-leaflet";
 import { PrimitiveAtom, useAtom } from "jotai";
 import { useDebouncedCallback } from "use-debounce";
 
 import { Nebula } from "../../../utils/map/Nebula";
+import { useMapDragging } from "../../../hooks/useMapHooks";
 
 export const NebulaMarker = ({
   nebulaAtom,
@@ -12,39 +13,21 @@ export const NebulaMarker = ({
 }) => {
   const [nebula, setNebula] = useAtom(nebulaAtom);
   console.log(nebula);
-  const ref = useRef<L.Circle<any>>(null);
-  const map = useMap();
   const [isEditing, setIsEditing] = useState(false);
 
-  const updateNebulaCoords = useDebouncedCallback((x: number, y: number) => {
-    setNebula((prevNebula) => {
-      const newNebula = new Nebula(prevNebula.toString(), prevNebula.id);
-      newNebula.x = x;
-      newNebula.y = y;
-      return newNebula;
-    });
-  }, 500);
-
-  // TODO: check if you can replace using use-move
-  useEffect(() => {
-    if (!ref.current) return;
-    ref.current.on("mousedown", () => {
-      ref.current?.on("mousemove", (e) => {
-        map.dragging.disable();
-        ref.current?.closePopup();
-        const { lat, lng } = e.latlng;
-        const roundedLat = Math.round(lat);
-        const roundedLng = Math.round(lng);
-        ref.current?.setLatLng([roundedLat, roundedLng]);
-        updateNebulaCoords(roundedLng, roundedLat);
+  const updateNebulaCoords = useDebouncedCallback(
+    (lat: number, lng: number) => {
+      setNebula((prevNebula) => {
+        const newNebula = new Nebula(prevNebula.toString(), prevNebula.id);
+        newNebula.x = lng;
+        newNebula.y = lat;
+        return newNebula;
       });
-    });
-    ref.current.on("mouseup", () => {
-      map.dragging.enable();
-      ref.current?.off("mousemove");
-      ref.current?.closePopup();
-    });
-  }, [map.dragging, updateNebulaCoords]);
+    },
+    500
+  );
+
+  const ref = useMapDragging(updateNebulaCoords);
 
   return nebula ? (
     <Circle
