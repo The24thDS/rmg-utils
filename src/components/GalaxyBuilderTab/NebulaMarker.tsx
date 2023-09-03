@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Popup, Circle, useMap } from "react-leaflet";
+import { useDebouncedCallback } from "use-debounce";
 import {
   Button,
   Group,
@@ -10,13 +11,30 @@ import {
   Title,
 } from "@mantine/core";
 
+import { PrimitiveAtom, useAtom } from "jotai";
 import { Nebula } from "../../utils/map/Nebula";
 
-export const NebulaMarker = ({ nebula }: { nebula: Nebula }) => {
+export const NebulaMarker = ({
+  nebulaAtom,
+}: {
+  nebulaAtom: PrimitiveAtom<Nebula>;
+}) => {
+  const [nebula, setNebula] = useAtom(nebulaAtom);
+  console.log(nebula);
   const ref = useRef<L.Circle<any>>(null);
   const map = useMap();
   const [isEditing, setIsEditing] = useState(false);
 
+  const updateNebulaCoords = useDebouncedCallback((x: number, y: number) => {
+    setNebula((prevNebula) => {
+      const newNebula = new Nebula(prevNebula.toString(), prevNebula.id);
+      newNebula.x = x;
+      newNebula.y = y;
+      return newNebula;
+    });
+  }, 500);
+
+  // TODO: check if you can replace using use-move
   useEffect(() => {
     if (!ref.current) return;
     ref.current.on("mousedown", () => {
@@ -24,16 +42,20 @@ export const NebulaMarker = ({ nebula }: { nebula: Nebula }) => {
         map.dragging.disable();
         ref.current?.closePopup();
         const { lat, lng } = e.latlng;
-        ref.current?.setLatLng([lat, lng]);
+        const roundedLat = Math.round(lat);
+        const roundedLng = Math.round(lng);
+        ref.current?.setLatLng([roundedLat, roundedLng]);
+        updateNebulaCoords(roundedLng, roundedLat);
       });
     });
     ref.current.on("mouseup", () => {
       map.dragging.enable();
       ref.current?.off("mousemove");
+      ref.current?.closePopup();
     });
-  }, [map.dragging]);
+  }, [map.dragging, updateNebulaCoords]);
 
-  return (
+  return nebula ? (
     <Circle
       key={nebula.id}
       center={[nebula.y, nebula.x]}
@@ -43,7 +65,7 @@ export const NebulaMarker = ({ nebula }: { nebula: Nebula }) => {
       pathOptions={{ color: "purple" }}
       ref={ref}
     >
-      <Popup
+      {/* <Popup
         pane="popups"
         minWidth={180}
         maxWidth={500}
@@ -95,7 +117,7 @@ export const NebulaMarker = ({ nebula }: { nebula: Nebula }) => {
             </Button>
           </>
         )}
-      </Popup>
+      </Popup> */}
     </Circle>
-  );
+  ) : null;
 };

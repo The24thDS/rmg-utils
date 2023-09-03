@@ -12,8 +12,8 @@ export class Nebula {
   radius!: number;
   #line: string;
 
-  constructor(line: string) {
-    this.#id = "nebula_" + this.#generateIdFromTimestamp();
+  constructor(line: string, id?: string) {
+    this.#id = id ?? "nebula_" + this.#generateIdFromTimestamp();
     this.#line = line;
 
     const baseMatch = Nebula.baseRegExp.exec(line);

@@ -13,19 +13,32 @@ import { Text, Title } from "@mantine/core";
 
 import { System } from "../../utils/map/System";
 import { Hyperlane } from "../../utils/map/Hyperlane";
-import { Nebula } from "../../utils/map/Nebula";
+
+import { NebulaMarker } from "./NebulaMarker";
 
 // TODO: Find a better picture
 import background from "../../assets/images/galaxycolor.png";
-import { NebulaMarker } from "./NebulaMarker";
+import { useAtom } from "jotai";
+import { nebulasAtomsAtom } from "../../store/nebulas.store";
 
-interface GalaxyMapProps {
-  systems: Map<number, System>;
-  hyperlanes: Hyperlane[];
-  nebulas: Map<string, Nebula>;
-}
+const NebulasLayer = () => {
+  const [nebulasAtoms] = useAtom(nebulasAtomsAtom);
+  return (
+    <LayersControl.Overlay name="Nebulas" checked>
+      <LayerGroup>
+        <Pane name="nebulas" style={{ zIndex: 200 }}>
+          {nebulasAtoms.map((nebulaAtom) => (
+            <NebulaMarker key={`${nebulaAtom}`} nebulaAtom={nebulaAtom} />
+          ))}
+        </Pane>
+      </LayerGroup>
+    </LayersControl.Overlay>
+  );
+};
 
-export const GalaxyMap = ({ systems, hyperlanes, nebulas }: GalaxyMapProps) => {
+export const GalaxyMap = () => {
+  const systems = new Map<number, System>();
+  const hyperlanes: Hyperlane[] = [];
   return (
     <MapContainer
       center={[0, 0]}
@@ -101,18 +114,7 @@ export const GalaxyMap = ({ systems, hyperlanes, nebulas }: GalaxyMapProps) => {
             </Pane>
           </LayerGroup>
         </LayersControl.Overlay>
-        <LayersControl.Overlay name="Nebulas" checked>
-          <LayerGroup>
-            <Pane name="nebulas" style={{ zIndex: 200 }}>
-              {Array.from(nebulas.keys()).map((id) => {
-                const nebula = nebulas.get(id);
-                return nebula ? (
-                  <NebulaMarker key={id} nebula={nebula} />
-                ) : null;
-              })}
-            </Pane>
-          </LayerGroup>
-        </LayersControl.Overlay>
+        <NebulasLayer />
       </LayersControl>
     </MapContainer>
   );

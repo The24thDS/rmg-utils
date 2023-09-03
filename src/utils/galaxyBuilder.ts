@@ -6,7 +6,7 @@ import { System } from "./map/System";
 export const parseData = () => {
   const systems = new Map<number, System>();
   const hyperlanes: Array<Hyperlane> = [];
-  const nebulas = new Map<string, Nebula>();
+  const nebulas: Array<Nebula> = [];
   const lines = testData.split("\n");
   lines.forEach((line) => {
     // check if the line is a system using the baseRegExp
@@ -22,7 +22,7 @@ export const parseData = () => {
     // check if the line is a nebula using the baseRegExp
     else if (Nebula.baseRegExp.exec(line)) {
       const nebula = new Nebula(line);
-      nebulas.set(nebula.id, nebula);
+      nebulas.push(nebula);
     }
   });
   return { systems, hyperlanes, nebulas };
