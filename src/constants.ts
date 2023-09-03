@@ -29,3 +29,5 @@ export enum NetlifyFunctions {
   SAVE_LOCATORS_INTERACTIONS = "save_locators_interaction",
   SAVE_TRAITS_INTERACTIONS = "save_traits_interaction",
 }
+
+export const APP_TITLE = "RMG Utils for Stellaris";

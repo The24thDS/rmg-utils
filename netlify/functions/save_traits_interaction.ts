@@ -2,7 +2,7 @@ import { Handler } from "@netlify/functions";
 import { Response } from "@netlify/functions/dist/function/response";
 import Airtable from "airtable";
 import invariant from "tiny-invariant";
-import { State } from "../../src/components/TraitsBuilderTab";
+import { State } from "../../src/components/TraitsBuilderTab/index.d";
 
 const saveLocatorsInteraction = async (type: "PNG" | "DDS", state: State) => {
   const { AIRTABLE_API_KEY, AIRTABLE_BASE, AIRTABLE_TRAITS_TABLE } =
