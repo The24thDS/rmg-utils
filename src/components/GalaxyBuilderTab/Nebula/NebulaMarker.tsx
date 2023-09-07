@@ -1,5 +1,5 @@
 import { Circle, Tooltip, useMap } from "react-leaflet";
-import { PrimitiveAtom, useAtom, useSetAtom } from "jotai";
+import { PrimitiveAtom, useAtom } from "jotai";
 
 import { Nebula } from "../../../utils/map/Nebula";
 import { selectedItemAtom } from "../../../store/galaxy.store";
@@ -10,7 +10,9 @@ export const NebulaMarker = ({
   nebulaAtom: PrimitiveAtom<Nebula>;
 }) => {
   const [nebula, setNebula] = useAtom(nebulaAtom);
-  const setSelectedItem = useSetAtom(selectedItemAtom);
+  const [selectedItem, setSelectedItem] = useAtom(selectedItemAtom);
+  const isSelected =
+    selectedItem?.type === "nebula" && selectedItem.id === nebula.id;
 
   const setAsSelected = () => {
     setSelectedItem({
@@ -36,9 +38,11 @@ export const NebulaMarker = ({
       key={nebula.id}
       center={[nebula.y, nebula.x]}
       radius={nebula.radius}
-      fillOpacity={0.5}
-      fillColor="purple"
-      pathOptions={{ color: "purple" }}
+      pathOptions={{
+        color: isSelected ? "orange" : "purple",
+        fillColor: isSelected ? "orange" : "purple",
+        fillOpacity: 0.5,
+      }}
       eventHandlers={{
         click: setAsSelected,
         mousedown: () => {
