@@ -5,7 +5,7 @@ import { Button, Grid, Group, Stack } from "@mantine/core";
 import { GalaxyMap } from "./GalaxyMap";
 import { parseData } from "../../utils/galaxyBuilder";
 import { nebulasAtom } from "../../store/nebulas.store";
-import { ItemForm } from "./ItemForm";
+import { ControlCenter } from "./ControlCenter";
 
 const gridColums = 12;
 
@@ -45,10 +45,7 @@ export const GalaxyBuilderTab = () => {
               Save galaxy
             </Button>
           </Group>
-          <ItemForm />
-          {/* TODO: Add system controls: Add, Delete, Move */}
-          {/* TODO: Add hyperlane controls: Add, Delete */}
-          {/* TODO: Add nebula controls: Add, Delete, Move */}
+          <ControlCenter />
         </Stack>
       </Grid.Col>
     </Grid>
