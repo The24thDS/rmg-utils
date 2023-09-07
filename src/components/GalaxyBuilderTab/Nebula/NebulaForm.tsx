@@ -1,23 +1,34 @@
-import { Button, Group, NumberInput, TextInput } from "@mantine/core";
+import { Box, Button, Group, NumberInput, TextInput } from "@mantine/core";
+import { isInRange, isNotEmpty, useForm } from "@mantine/form";
 import { PrimitiveAtom, useAtom } from "jotai";
 
 import { Nebula } from "../../../utils/map/Nebula";
-import { useForm } from "@mantine/form";
 
-interface IUpdateNebula {
-  name: string;
-  x: number;
-  y: number;
-  radius: number;
-}
+type UpdateNebulaPayload = Pick<Nebula, "name" | "x" | "y" | "radius">;
 
 export const NebulaForm = ({ atom }: { atom: PrimitiveAtom<Nebula> }) => {
   const [nebula, setNebula] = useAtom(atom);
   const form = useForm({
     initialValues: nebula,
+    validateInputOnBlur: true,
+    validate: {
+      name: isNotEmpty("You must provide a name"),
+      x: isInRange(
+        { min: -500, max: 500 },
+        "Value must be between -500 and 500"
+      ),
+      y: isInRange(
+        { min: -500, max: 500 },
+        "Value must be between -500 and 500"
+      ),
+      radius: isInRange(
+        { min: 1, max: 500 },
+        "Value must be between 1 and 500"
+      ),
+    },
   });
 
-  const updateNebula = ({ name, x, y, radius }: IUpdateNebula) => {
+  const updateNebula = ({ name, x, y, radius }: UpdateNebulaPayload) => {
     setNebula((prevNebula) => {
       const newNebula = new Nebula(prevNebula.toString(), prevNebula.id);
       newNebula.name = name;
@@ -29,10 +40,14 @@ export const NebulaForm = ({ atom }: { atom: PrimitiveAtom<Nebula> }) => {
   };
 
   return (
-    <form onSubmit={form.onSubmit(updateNebula)}>
-      <TextInput label="ID" disabled defaultValue={nebula.id} />
-      <TextInput label="Name" {...form.getInputProps("name")} />
-      <Group spacing="xs" grow>
+    <Box
+      component="form"
+      onSubmit={form.onSubmit(updateNebula)}
+      onReset={form.reset}
+    >
+      <TextInput label="ID" disabled value={nebula.id} readOnly />
+      <TextInput mt="md" label="Name" {...form.getInputProps("name")} />
+      <Group spacing="xs" mt="md" align="start" grow>
         <NumberInput
           label="X position"
           {...form.getInputProps("x")}
@@ -52,12 +67,12 @@ export const NebulaForm = ({ atom }: { atom: PrimitiveAtom<Nebula> }) => {
           min={1}
         />
       </Group>
-      <Group spacing="xs" mt="sm">
+      <Group spacing="xs" mt="lg">
         <Button type="submit">Save</Button>
         <Button variant="subtle" type="reset">
           Revert
         </Button>
       </Group>
-    </form>
+    </Box>
   );
 };

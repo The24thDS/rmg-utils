@@ -1,9 +1,9 @@
 import { Center, SegmentedControl, Text, Title } from "@mantine/core";
 import { IconArrowsMove, IconEdit, IconNewSection } from "@tabler/icons";
 import { useAtom } from "jotai";
-import { selectedActionAtom } from "../../store/galaxy.store";
 
-// move, add, edit
+import { selectedActionAtom } from "../../store/galaxy.store";
+import { ItemForm } from "./ItemForm";
 
 type Action = typeof selectedActionAtom.init;
 
@@ -55,6 +55,7 @@ export const ControlCenter = () => {
         fullWidth
         color="blue"
       />
+      {action === "edit" && <ItemForm />}
     </>
   );
 };

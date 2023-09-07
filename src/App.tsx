@@ -58,7 +58,7 @@ export default function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <DevTools />
+        <DevTools theme="dark" />
         <Notifications />
         <BrowserRouter>
           <Stack
