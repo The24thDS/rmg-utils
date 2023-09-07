@@ -1,9 +1,7 @@
-import { Circle, Tooltip } from "react-leaflet";
+import { Circle, Tooltip, useMap } from "react-leaflet";
 import { PrimitiveAtom, useAtom, useSetAtom } from "jotai";
-import { useDebouncedCallback } from "use-debounce";
 
 import { Nebula } from "../../../utils/map/Nebula";
-import { useMapDragging } from "../../../hooks/useMapHooks";
 import { selectedItemAtom } from "../../../store/galaxy.store";
 
 export const NebulaMarker = ({
@@ -14,19 +12,24 @@ export const NebulaMarker = ({
   const [nebula, setNebula] = useAtom(nebulaAtom);
   const setSelectedItem = useSetAtom(selectedItemAtom);
 
-  const updateNebulaCoords = useDebouncedCallback(
-    (lat: number, lng: number) => {
-      setNebula((prevNebula) => {
-        const newNebula = new Nebula(prevNebula.toString(), prevNebula.id);
-        newNebula.x = lng;
-        newNebula.y = lat;
-        return newNebula;
-      });
-    },
-    500
-  );
+  const setAsSelected = () => {
+    setSelectedItem({
+      type: "nebula",
+      id: nebula.id,
+      atom: nebulaAtom,
+    });
+  };
 
-  const ref = useMapDragging(updateNebulaCoords);
+  const updateNebulaCoords = ({ lat, lng }: { lat: number; lng: number }) => {
+    setNebula((prevNebula) => {
+      const newNebula = new Nebula(prevNebula.toString(), prevNebula.id);
+      newNebula.x = Math.round(lng);
+      newNebula.y = Math.round(lat);
+      return newNebula;
+    });
+  };
+
+  const map = useMap();
 
   return nebula ? (
     <Circle
@@ -36,14 +39,18 @@ export const NebulaMarker = ({
       fillOpacity={0.5}
       fillColor="purple"
       pathOptions={{ color: "purple" }}
-      ref={ref}
       eventHandlers={{
-        click: (e) => {
-          setSelectedItem({
-            type: "nebula",
-            id: nebula.id,
-            atom: nebulaAtom,
+        click: setAsSelected,
+        mousedown: () => {
+          map.on("mousemove", (e) => {
+            map.dragging.disable();
+            setAsSelected();
+            updateNebulaCoords(e.latlng);
           });
+        },
+        mouseup: (e) => {
+          map.dragging.enable();
+          map.off("mousemove");
         },
       }}
     >
