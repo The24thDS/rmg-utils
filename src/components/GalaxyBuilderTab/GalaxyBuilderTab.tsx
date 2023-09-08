@@ -3,9 +3,10 @@ import { useSetAtom } from "jotai";
 import { Button, Grid, Group, Stack } from "@mantine/core";
 
 import { GalaxyMap } from "./GalaxyMap";
+import { RightPanel } from "./RightPanel";
+
 import { parseData } from "../../utils/galaxyBuilder";
 import { nebulasAtom } from "../../store/nebulas.store";
-import { ControlCenter } from "./ControlCenter";
 
 const gridColums = 12;
 
@@ -45,7 +46,7 @@ export const GalaxyBuilderTab = () => {
               Save galaxy
             </Button>
           </Group>
-          <ControlCenter />
+          <RightPanel />
         </Stack>
       </Grid.Col>
     </Grid>

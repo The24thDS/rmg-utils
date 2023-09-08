@@ -8,8 +8,8 @@ interface Item {
   atom: PrimitiveAtom<Nebula>;
 }
 
-type ActionType = "move" | "add" | "edit";
+type ActionType = "move" | "edit";
 
 export const selectedItemAtom = atom<Item | null>(null);
 
-export const selectedActionAtom = atom<ActionType>("add");
+export const selectedActionAtom = atom<ActionType>("move");

@@ -1,0 +1,11 @@
+.rmg-leaflet-popup.rmg-leaflet-popup.rmg-leaflet-popup {
+  background-color: #1a1b1e;
+  color: white;
+  border-color: #2b2d31;
+}
+.rmg-leaflet-popup.rmg-leaflet-popup.rmg-leaflet-popup.leaflet-tooltip-right::before {
+  border-right-color: #2b2d31;
+}
+.rmg-leaflet-popup.rmg-leaflet-popup.rmg-leaflet-popup.leaflet-tooltip-left::before {
+  border-left-color: #2b2d31;
+}

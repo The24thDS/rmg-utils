@@ -3,7 +3,10 @@ import { PrimitiveAtom, useAtom } from "jotai";
 
 import { Nebula } from "../../../utils/map/Nebula";
 import { selectedItemAtom } from "../../../store/galaxy.store";
-import { useMarkerDraggingEventHandlers } from "../../../hooks";
+import {
+  useMapItemContextMenu,
+  useMarkerDraggingEventHandlers,
+} from "../../../hooks";
 
 export const NebulaMarker = ({
   nebulaAtom,
@@ -33,8 +36,14 @@ export const NebulaMarker = ({
     });
   };
 
-  const draggingEventHandlers =
-    useMarkerDraggingEventHandlers(updateNebulaCoords);
+  const draggingEventHandlers = useMarkerDraggingEventHandlers(
+    isSelected,
+    updateNebulaCoords
+  );
+  const contextmenu = useMapItemContextMenu(isSelected, {
+    move: setAsSelected,
+    edit: setAsSelected,
+  });
 
   return nebula ? (
     <Circle
@@ -49,9 +58,12 @@ export const NebulaMarker = ({
       eventHandlers={{
         click: setAsSelected,
         ...draggingEventHandlers,
+        contextmenu,
       }}
     >
-      <Tooltip pane="popups">{nebula.name}</Tooltip>
+      <Tooltip pane="popups" className="rmg-leaflet-popup">
+        {nebula.name}
+      </Tooltip>
     </Circle>
   ) : null;
 };
