@@ -10,8 +10,10 @@ import {
 
 export const NebulaMarker = ({
   nebulaAtom,
+  remove,
 }: {
   nebulaAtom: PrimitiveAtom<Nebula>;
+  remove: () => void;
 }) => {
   const [nebula, setNebula] = useAtom(nebulaAtom);
   const [selectedItem, setSelectedItem] = useAtom(selectedItemAtom);
@@ -24,6 +26,11 @@ export const NebulaMarker = ({
       id: nebula.id,
       atom: nebulaAtom,
     });
+  };
+
+  const removeNebula = () => {
+    setSelectedItem(null);
+    remove();
   };
 
   const updateNebulaCoords = ({ lat, lng }: { lat: number; lng: number }) => {
@@ -43,6 +50,7 @@ export const NebulaMarker = ({
   const contextmenu = useMapItemContextMenu(isSelected, {
     move: setAsSelected,
     edit: setAsSelected,
+    remove: removeNebula,
   });
 
   return nebula ? (

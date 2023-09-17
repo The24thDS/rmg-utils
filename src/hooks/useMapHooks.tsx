@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { useMap } from "react-leaflet";
 import { useContextMenu } from "mantine-contextmenu";
-import { IconArrowsMove, IconEdit } from "@tabler/icons";
+import { IconArrowsMove, IconEdit, IconTrash } from "@tabler/icons";
 
 import { selectedActionAtom } from "../store/galaxy.store";
 
@@ -42,6 +42,7 @@ export const useMarkerDraggingEventHandlers = (
 interface MapItemActions {
   move: () => void;
   edit: () => void;
+  remove: () => void;
 }
 
 export const useMapItemContextMenu = (
@@ -71,6 +72,13 @@ export const useMapItemContextMenu = (
           setSelectedAction("edit");
           actions.edit();
         },
+      },
+      { key: "divider" },
+      {
+        key: "delete",
+        color: "red",
+        icon: <IconTrash size="1rem" />,
+        onClick: actions.remove,
       },
       // @ts-ignore
     ])(e.originalEvent);

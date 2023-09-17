@@ -24,13 +24,17 @@ import background from "../../assets/images/galaxycolor.png";
 import "./GalaxyMap.css";
 
 const NebulasLayer = () => {
-  const [nebulasAtoms] = useAtom(nebulasAtomsAtom);
+  const [nebulasAtoms, dispatch] = useAtom(nebulasAtomsAtom);
   return (
     <LayersControl.Overlay name="Nebulas" checked>
       <LayerGroup>
         <Pane name="nebulas" style={{ zIndex: 200 }}>
           {nebulasAtoms.map((nebulaAtom) => (
-            <NebulaMarker key={`${nebulaAtom}`} nebulaAtom={nebulaAtom} />
+            <NebulaMarker
+              key={`${nebulaAtom}`}
+              nebulaAtom={nebulaAtom}
+              remove={() => dispatch({ type: "remove", atom: nebulaAtom })}
+            />
           ))}
         </Pane>
       </LayerGroup>
