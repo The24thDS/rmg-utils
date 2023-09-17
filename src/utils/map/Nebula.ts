@@ -11,57 +11,69 @@ export class Nebula {
   y!: number;
   radius!: number;
   #line: string;
+  isNew = false;
 
-  constructor(line: string, id?: string) {
-    this.#id = id ?? "nebula_" + this.#generateIdFromTimestamp();
-    this.#line = line;
-
-    const baseMatch = Nebula.baseRegExp.exec(line);
-    if (!baseMatch) {
-      this.#throwConstructorError(
-        line,
-        "Failed to match baseRegExp. Is this a nebula line?"
-      );
-    }
-
-    const nameMatch = Nebula.nameRegExp.exec(line)?.groups;
-    if (nameMatch) {
-      this.name = nameMatch.name;
+  constructor(line: string | Partial<Nebula>, id?: string) {
+    if (typeof line === "object") {
+      this.#id = line.id ?? "nebula_" + this.#generateIdFromTimestamp();
+      this.name = line.name ?? this.#id;
+      this.x = line.x ?? 0;
+      this.y = line.y ?? 0;
+      this.radius = line.radius ?? 10;
+      this.#line = `nebula = { name = "${this.name}" position = { x = ${
+        this.x * -1
+      } y = ${this.y * -1} } radius = ${this.radius} }`;
     } else {
-      this.#throwConstructorError(
-        line,
-        "Failed to match nameRegExp. Could not find 'name' value."
-      );
-    }
+      this.#id = id ?? "nebula_" + this.#generateIdFromTimestamp();
+      this.#line = line;
 
-    const xPosMatch = Nebula.xPosRegExp.exec(line)?.groups;
-    if (xPosMatch) {
-      this.x = parseInt(xPosMatch.x) * -1;
-    } else {
-      this.#throwConstructorError(
-        line,
-        "Failed to match xPosRegExp. Could not find 'x' value."
-      );
-    }
+      const baseMatch = Nebula.baseRegExp.exec(line);
+      if (!baseMatch) {
+        this.#throwConstructorError(
+          line,
+          "Failed to match baseRegExp. Is this a nebula line?"
+        );
+      }
 
-    const yPosMatch = Nebula.yPosRegExp.exec(line)?.groups;
-    if (yPosMatch) {
-      this.y = parseInt(yPosMatch.y) * -1;
-    } else {
-      this.#throwConstructorError(
-        line,
-        "Failed to match yPosRegExp. Could not find 'y' value."
-      );
-    }
+      const nameMatch = Nebula.nameRegExp.exec(line)?.groups;
+      if (nameMatch) {
+        this.name = nameMatch.name;
+      } else {
+        this.#throwConstructorError(
+          line,
+          "Failed to match nameRegExp. Could not find 'name' value."
+        );
+      }
 
-    const radiusMatch = Nebula.radiusRegExp.exec(line)?.groups;
-    if (radiusMatch) {
-      this.radius = parseInt(radiusMatch.radius);
-    } else {
-      this.#throwConstructorError(
-        line,
-        "Failed to match radiusRegExp. Could not find 'radius' value."
-      );
+      const xPosMatch = Nebula.xPosRegExp.exec(line)?.groups;
+      if (xPosMatch) {
+        this.x = parseInt(xPosMatch.x) * -1;
+      } else {
+        this.#throwConstructorError(
+          line,
+          "Failed to match xPosRegExp. Could not find 'x' value."
+        );
+      }
+
+      const yPosMatch = Nebula.yPosRegExp.exec(line)?.groups;
+      if (yPosMatch) {
+        this.y = parseInt(yPosMatch.y) * -1;
+      } else {
+        this.#throwConstructorError(
+          line,
+          "Failed to match yPosRegExp. Could not find 'y' value."
+        );
+      }
+
+      const radiusMatch = Nebula.radiusRegExp.exec(line)?.groups;
+      if (radiusMatch) {
+        this.radius = parseInt(radiusMatch.radius);
+      } else {
+        this.#throwConstructorError(
+          line,
+          "Failed to match radiusRegExp. Could not find 'radius' value."
+        );
+      }
     }
   }
 

@@ -9,14 +9,18 @@ import {
   Pane,
 } from "react-leaflet";
 import L from "leaflet";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { Text, Title } from "@mantine/core";
 import { ContextMenuProvider } from "mantine-contextmenu";
 
 import { System } from "../../utils/map/System";
 import { Hyperlane } from "../../utils/map/Hyperlane";
-import { nebulasAtomsAtom } from "../../store/nebulas.store";
+import {
+  nebulasLayerActiveAtom,
+  nebulasAtomsAtom,
+} from "../../store/nebulas.store";
 import { NebulaMarker } from "./Nebula/NebulaMarker";
+import { useMapContextMenu } from "../../hooks";
 
 // TODO: Find a better picture
 import background from "../../assets/images/galaxycolor.png";
@@ -25,9 +29,19 @@ import "./GalaxyMap.css";
 
 const NebulasLayer = () => {
   const [nebulasAtoms, dispatch] = useAtom(nebulasAtomsAtom);
+  const setNebulasLayerActive = useSetAtom(nebulasLayerActiveAtom);
   return (
     <LayersControl.Overlay name="Nebulas" checked>
-      <LayerGroup>
+      <LayerGroup
+        eventHandlers={{
+          add: () => {
+            setNebulasLayerActive(true);
+          },
+          remove: () => {
+            setNebulasLayerActive(false);
+          },
+        }}
+      >
         <Pane name="nebulas" style={{ zIndex: 200 }}>
           {nebulasAtoms.map((nebulaAtom) => (
             <NebulaMarker
@@ -42,9 +56,31 @@ const NebulasLayer = () => {
   );
 };
 
+const BackgroundPane = () => {
+  const contextmenu = useMapContextMenu();
+  return (
+    <Pane name="background" style={{ zIndex: 100 }}>
+      <ImageOverlay
+        url={background}
+        bounds={[
+          [-500, -500],
+          [500, 500],
+        ]}
+        opacity={0.3}
+        interactive
+        className="galaxy-map-background"
+        eventHandlers={{
+          contextmenu,
+        }}
+      />
+    </Pane>
+  );
+};
+
 export const GalaxyMap = () => {
   const systems = new Map<number, System>();
   const hyperlanes: Hyperlane[] = [];
+
   return (
     <ContextMenuProvider>
       <MapContainer
@@ -63,16 +99,7 @@ export const GalaxyMap = () => {
         }}
         crs={L.CRS.Simple}
       >
-        <Pane name="background" style={{ zIndex: 100 }}>
-          <ImageOverlay
-            url={background}
-            bounds={[
-              [-500, -500],
-              [500, 500],
-            ]}
-            opacity={0.3}
-          />
-        </Pane>
+        <BackgroundPane />
         <Pane name="popups" style={{ zIndex: 500 }} />
         <LayersControl position="topright">
           <LayersControl.Overlay name="Systems" checked>

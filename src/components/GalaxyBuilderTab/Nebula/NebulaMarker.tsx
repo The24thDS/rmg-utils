@@ -7,6 +7,7 @@ import {
   useMapItemContextMenu,
   useMarkerDraggingEventHandlers,
 } from "../../../hooks";
+import { useCallback, useEffect } from "react";
 
 export const NebulaMarker = ({
   nebulaAtom,
@@ -20,13 +21,25 @@ export const NebulaMarker = ({
   const isSelected =
     selectedItem?.type === "nebula" && selectedItem.id === nebula.id;
 
-  const setAsSelected = () => {
+  const setAsSelected = useCallback(() => {
     setSelectedItem({
       type: "nebula",
       id: nebula.id,
       atom: nebulaAtom,
     });
-  };
+  }, [nebula.id, nebulaAtom, setSelectedItem]);
+
+  // sets a newly created nebula as active so it can be edited
+  useEffect(() => {
+    if (nebula.isNew) {
+      setNebula((prevNebula) => {
+        const newNebula = new Nebula(prevNebula.toString(), prevNebula.id);
+        newNebula.isNew = false;
+        return newNebula;
+      });
+      setAsSelected();
+    }
+  }, [nebula.isNew, setAsSelected, setNebula]);
 
   const removeNebula = () => {
     setSelectedItem(null);
