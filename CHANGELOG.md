@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/The24thDS/rmg-utils/compare/v1.5.2...v1.6.0) (2023-10-03)
+
+
+### Features
+
+* add unused DDS file finder ([#10](https://github.com/The24thDS/rmg-utils/issues/10)) ([3720ce6](https://github.com/The24thDS/rmg-utils/commit/3720ce6750dcbb5fa8c717ab5e6eb9ea136c3efa))
+
 ## [1.5.2](https://github.com/The24thDS/rmg-utils/compare/v1.5.1...v1.5.2) (2023-09-01)
 
 
