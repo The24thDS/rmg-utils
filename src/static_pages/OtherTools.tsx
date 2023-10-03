@@ -84,6 +84,16 @@ export default function OtherTools() {
         <List.Item>
           <Anchor
             target="_blank"
+            download=""
+            href="https://github.com/MichaelMakesGames/stellarmaps"
+          >
+            stellarmaps
+          </Anchor>{" "}
+          by MichaelMakesGames, generate stylized maps from Stellaris saves;
+        </List.Item>
+        <List.Item>
+          <Anchor
+            target="_blank"
             href="https://github.com/OldEnt/stellaris-triggers-modifiers-effects-list"
           >
             stellaris-triggers-modifiers-effects-list
