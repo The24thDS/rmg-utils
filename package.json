@@ -20,7 +20,7 @@
     "@mantine/notifications": "^6.0.0",
     "@netlify/functions": "^1.0.0",
     "@sentry/browser": "^7.12.1",
-    "@tabler/icons": "^1.78.1",
+    "@tabler/icons-react": "^3.5.0",
     "airtable": "^0.11.4",
     "filesize": "^10.0.12",
     "konva": "^8.3.14",

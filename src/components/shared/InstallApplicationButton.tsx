@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Alert, Button } from "@mantine/core";
-import { IconAlertCircle } from "@tabler/icons";
+import { IconAlertCircle } from "@tabler/icons-react";
 
 import { BeforeInstallPromptContext } from "../../hooks/useIsInstalled";
 import { isAnalyticsEnabled } from "../../utils/general";
