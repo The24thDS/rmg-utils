@@ -1,5 +1,5 @@
 import { ColorPicker, Stack, TextInput } from "@mantine/core";
-import { ColorFormat } from "@mantine/core/lib/ColorPicker/types";
+import type { ColorPickerProps } from "@mantine/core";
 
 interface ColorPickerElementProps {
   value: string;
@@ -7,7 +7,7 @@ interface ColorPickerElementProps {
   label: string;
   swatches?: string[];
   swatchesPerRow?: number;
-  format?: ColorFormat;
+  format?: ColorPickerProps["format"];
 }
 
 export default function ColorPickerElement({
