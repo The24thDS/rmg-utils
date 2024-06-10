@@ -22,7 +22,7 @@ export default function Privacy() {
     <Container>
       <Title
         order={1}
-        sx={(theme) => ({ fontSize: `calc(${theme.fontSizes.xl} * 2.5)` })}
+        style={{ fontSize: `calc(var(--mantine-font-size-xl) * 2.5)` }}
       >
         Privacy policy
       </Title>
