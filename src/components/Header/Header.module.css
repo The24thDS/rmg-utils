@@ -1,0 +1,11 @@
+.header {
+  padding-top: var(--mantine-spacing-sm);
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-6)
+  );
+  box-shadow: 0 -2px light-dark(
+      var(--mantine-color-gray-3),
+      var(--mantine-color-dark-4)
+    ) inset;
+}
