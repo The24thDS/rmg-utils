@@ -1,4 +1,3 @@
-import { Image } from "@mantine/core";
 import { FileWithPath } from "@mantine/dropzone";
 import { forwardRef } from "react";
 
@@ -10,13 +9,12 @@ const ImagePreview = forwardRef<HTMLImageElement, ImagePreviewProps>(
   ({ file }, ref) => {
     const imageUrl = file ? URL.createObjectURL(file) : null;
     return imageUrl ? (
-      <Image
+      <img
         src={imageUrl}
-        imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+        onLoad={() => URL.revokeObjectURL(imageUrl)}
         width="auto"
-        maw={150}
-        imageRef={ref}
-        styles={{ image: { maxWidth: "100% !important" } }}
+        ref={ref}
+        style={{ maxWidth: "150px" }}
       />
     ) : null;
   }

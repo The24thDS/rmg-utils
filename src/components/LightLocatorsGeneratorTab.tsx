@@ -17,8 +17,8 @@ import { useCustomDocumentTitle } from "../hooks";
 const gridColums = 12;
 
 export default function LightLocatorsGeneratorTab() {
-  const [locators, setLocators] = useInputState<number | "">(10);
-  const [stateTime, setStateTime] = useInputState<number | "">(5);
+  const [locators, setLocators] = useInputState<string | number>(10);
+  const [stateTime, setStateTime] = useInputState<string | number>(5);
   const [generatedLocators, setGeneratedLocators] = useInputState("");
   useCustomDocumentTitle("Light Locators Generator");
 
@@ -75,7 +75,7 @@ export default function LightLocatorsGeneratorTab() {
         button.
       </Text>
       <Grid columns={gridColums}>
-        <Grid.Col span={gridColums} sm={3}>
+        <Grid.Col span={{ base: gridColums, sm: 3 }}>
           <Stack>
             <NumberInput
               value={locators}
@@ -96,7 +96,10 @@ export default function LightLocatorsGeneratorTab() {
             <Button onClick={onGenerateClick}>Generate locators</Button>
           </Stack>
         </Grid.Col>
-        <Grid.Col span={gridColums} lg={8} offsetLg={1}>
+        <Grid.Col
+          span={{ base: gridColums, lg: 8 }}
+          offset={{ base: 0, lg: 1 }}
+        >
           <Stack>
             <Textarea
               value={generatedLocators}

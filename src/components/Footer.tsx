@@ -1,26 +1,28 @@
-import { Anchor, CSSObject, Group, MantineTheme, Text } from "@mantine/core";
+import { Anchor, Group, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
+
 import { ROUTES } from "../constants";
 
-const footerLinkStyles = (theme: MantineTheme): CSSObject => ({
-  color:
-    theme.colorScheme === "light" ? theme.colors.dark[5] : theme.colors.dark[0],
-});
+import classes from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <Group position="apart" mt="auto" p="sm">
+    <Group justify="space-between" mt="auto" p="sm">
       <Group>
-        <Text size="sm" color="dimmed">
+        <Text size="sm" c="dimmed">
           &copy; {new Date().getFullYear()} Renegades Modding Group
         </Text>
         &bull;
-        <Anchor sx={footerLinkStyles} component={Link} to={ROUTES.PRIVACY.path}>
+        <Anchor
+          className={classes.link}
+          component={Link}
+          to={ROUTES.PRIVACY.path}
+        >
           {ROUTES.PRIVACY.name}
         </Anchor>
         &bull;
         <Anchor
-          sx={footerLinkStyles}
+          className={classes.link}
           href="https://steamcommunity.com/workshop/filedetails/?id=2469745470"
           target="_blank"
         >
@@ -28,7 +30,7 @@ export default function Footer() {
         </Anchor>
         &bull;
         <Anchor
-          sx={footerLinkStyles}
+          className={classes.link}
           href="https://discord.gg/4xfQ78sPpm"
           target="_blank"
         >
@@ -37,7 +39,7 @@ export default function Footer() {
       </Group>
       <Anchor
         size="sm"
-        color={"dimmed"}
+        c="dimmed"
         href={`https://github.com/The24thDS/rmg-utils/releases/tag/v${APP_VERSION}`}
         target="_blank"
         rel="noopener noreferrer"
