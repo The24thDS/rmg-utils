@@ -77,7 +77,7 @@ export default function TraitsBuilderTab() {
         the result you can download it in PNG or DDS format.
       </Text>
       <Grid columns={24}>
-        <Grid.Col span={24} sm={7}>
+        <Grid.Col span={{ base: 24, sm: 7 }}>
           <SimpleGrid cols={2}>
             <Stack>
               <TextInput
@@ -121,8 +121,8 @@ export default function TraitsBuilderTab() {
                 triggerAnalytics={postAnalytics}
               />
             </Stack>
-            <Stack spacing="xs">
-              <Stack mih={140} spacing={1}>
+            <Stack gap="xs">
+              <Stack mih={140} gap={1}>
                 <Text size="sm">Icon</Text>
                 <Dropzone
                   accept={IMAGE_MIME_TYPE}
@@ -131,7 +131,7 @@ export default function TraitsBuilderTab() {
                   onDrop={(v) => dispatch({ type: "set_files", value: v })}
                   mb="sm"
                 >
-                  <Text align="center">Drop your icon here</Text>
+                  <Text ta="center">Drop your icon here</Text>
                 </Dropzone>
                 <ImagePreview file={state.files[0]} ref={iconRef} />
               </Stack>
@@ -142,7 +142,7 @@ export default function TraitsBuilderTab() {
             </Stack>
           </SimpleGrid>
         </Grid.Col>
-        <Grid.Col span={24} lg={16} offsetLg={1}>
+        <Grid.Col span={{ base: 24, lg: 16 }} offset={{ base: 0, lg: 1 }}>
           <SimpleGrid cols={2} spacing="xl">
             <ColorPickerElement
               label="Background color"
