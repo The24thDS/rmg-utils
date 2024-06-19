@@ -32,7 +32,7 @@ export default function TraitIconControls({
             dispatch({ type: "set_iconScale", value: v });
           }
         }}
-        precision={3}
+        decimalScale={3}
         step={0.1}
         min={0.001}
         stepHoldDelay={500}
@@ -47,7 +47,7 @@ export default function TraitIconControls({
               dispatch({ type: "set_iconXOffset", value: v });
             }
           }}
-          precision={1}
+          decimalScale={1}
           stepHoldDelay={500}
           stepHoldInterval={100}
         />
@@ -59,7 +59,7 @@ export default function TraitIconControls({
               dispatch({ type: "set_iconYOffset", value: v });
             }
           }}
-          precision={1}
+          decimalScale={1}
           stepHoldDelay={500}
           stepHoldInterval={100}
         />
