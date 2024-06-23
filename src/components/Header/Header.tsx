@@ -65,7 +65,7 @@ export default function Header() {
       <Stack sx={{ maxWidth: 1500 }} mx="auto">
         <Group position="apart" px="sm">
           <Group>
-            <Image src={rmgLogo} height={50} width={50} />
+            <Image src={rmgLogo} height={50} width={50} alt="RMG logo" />
             <Text size="xl" weight={700}>
               RMG Utils for Stellaris
             </Text>
