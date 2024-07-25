@@ -9,7 +9,7 @@ import {
   Flex,
 } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { IconAlertTriangle } from "@tabler/icons-react";
+import { IconAlertTriangle } from "@tabler/icons";
 
 import { RequiresInstallation } from "../shared/RequiresInstallation";
 

@@ -1,5 +1,5 @@
 import { Accordion, Flex, List, Text } from "@mantine/core";
-import { IconFolder, IconPhoto } from "@tabler/icons-react";
+import { IconFolder, IconPhoto } from "@tabler/icons";
 import { partial } from "filesize";
 
 import { UDDSDirectoryDDSFileType } from "../../utils/UDDSDirectory";
