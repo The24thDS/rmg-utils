@@ -2,7 +2,6 @@
   "name": "rmg-utils",
   "private": true,
   "version": "1.6.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "prebuild": "cp magick.js public/assets/magick.js && cp magick.wasm public/assets/magick.wasm",
@@ -10,8 +9,7 @@
     "postbuild": "rm public/assets/magick.js public/assets/magick.wasm",
     "preview": "vite preview",
     "release": "npx standard-version",
-    "functions": "npx env-cmd -f ./.env.local netlify functions:serve",
-    "e2e": "playwright test"
+    "functions": "npx env-cmd -f ./.env.local netlify functions:serve"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -21,29 +19,28 @@
     "@mantine/notifications": "^6.0.0",
     "@netlify/functions": "^1.0.0",
     "@sentry/browser": "^7.12.1",
-    "@tabler/icons-react": "^3.5.0",
+    "@tabler/icons": "^1.78.1",
     "airtable": "^0.11.4",
     "filesize": "^10.0.12",
     "konva": "^8.3.14",
     "random": "^3.0.6",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-konva": "^18.2.3",
     "react-router-dom": "^6.3.0",
     "tiny-invariant": "^1.2.0",
     "use-image": "^1.1.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.44.1",
-    "@types/node": "^20.12.8",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.0",
-    "@types/wicg-file-system-access": "^2023.10.5",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.11",
-    "vite-plugin-pwa": "^0.20.0",
-    "workbox-build": "^7.1.0",
-    "workbox-window": "^7.1.0"
+    "@types/node": "^18.6.3",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@types/wicg-file-system-access": "^2020.9.6",
+    "@vitejs/plugin-react": "^3.1.0",
+    "typescript": "^4.7.4",
+    "vite": "^4.0.0",
+    "vite-plugin-pwa": "^0.14.4",
+    "workbox-build": "^6.5.4",
+    "workbox-window": "^6.5.4"
   }
 }
