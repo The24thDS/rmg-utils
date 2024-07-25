@@ -26,4 +26,5 @@ jobs:
           path: |
             playwright-report/
             test-results/
+            e2e/
           retention-days: 30
