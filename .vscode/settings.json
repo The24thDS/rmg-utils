@@ -1,0 +1,11 @@
+{
+  "cssVariables.lookupFiles": [
+    "**/*.css",
+    "**/*.scss",
+    "**/*.sass",
+    "**/*.less",
+    "node_modules/@mantine/core/styles.css",
+    "node_modules/@mantine/notification/styles.css",
+    "node_modules/@mantine/dropzone/styles.css"
+  ]
+}

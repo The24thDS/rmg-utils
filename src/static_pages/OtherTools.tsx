@@ -19,6 +19,7 @@ export default function OtherTools() {
           <Anchor
             target="_blank"
             href="https://marketplace.visualstudio.com/items?itemName=The24thDS.stellaris-yaml-syntax"
+            size="xl"
           >
             24's Stellaris YAML Syntax
           </Anchor>
@@ -29,6 +30,7 @@ export default function OtherTools() {
           <Anchor
             target="_blank"
             href="https://cdn.discordapp.com/attachments/442565538045100062/1010634192645787688/component_slots.code-snippets"
+            size="xl"
           >
             component slots code snippets
           </Anchor>{" "}
@@ -36,6 +38,7 @@ export default function OtherTools() {
           <Anchor
             target="_blank"
             href="https://cdn.discordapp.com/attachments/442565538045100062/1010634193144918178/component_slots.mp4"
+            size="xl"
           >
             demo video
           </Anchor>
@@ -57,6 +60,7 @@ export default function OtherTools() {
           <Anchor
             target="_blank"
             href="https://ttftcuts.github.io/stellaris_modifier_icons/"
+            size="xl"
           >
             Stellaris Modifier Icons
           </Anchor>{" "}
@@ -68,6 +72,7 @@ export default function OtherTools() {
             target="_blank"
             download=""
             href="https://cdn.discordapp.com/attachments/442565538045100062/1008450900647477388/localisation.code-snippets"
+            size="xl"
           >
             localisation colors code snippets
           </Anchor>{" "}
@@ -76,6 +81,7 @@ export default function OtherTools() {
           <Anchor
             target="_blank"
             href="https://cdn.discordapp.com/attachments/442565538045100062/1008450518051455086/color-snippet.webm"
+            size="xl"
           >
             demo video
           </Anchor>
@@ -86,6 +92,7 @@ export default function OtherTools() {
             target="_blank"
             download=""
             href="https://github.com/MichaelMakesGames/stellarmaps"
+            size="xl"
           >
             stellarmaps
           </Anchor>{" "}
@@ -95,6 +102,7 @@ export default function OtherTools() {
           <Anchor
             target="_blank"
             href="https://github.com/OldEnt/stellaris-triggers-modifiers-effects-list"
+            size="xl"
           >
             stellaris-triggers-modifiers-effects-list
           </Anchor>{" "}
@@ -105,6 +113,7 @@ export default function OtherTools() {
           <Anchor
             target="_blank"
             href="https://github.com/quetzatcoatl/Stellaris-Moding-Assets"
+            size="xl"
           >
             Stellaris-Moding-Assets repo
           </Anchor>{" "}
@@ -112,7 +121,11 @@ export default function OtherTools() {
           mods;
         </List.Item>
         <List.Item>
-          <Anchor target="_blank" href="https://github.com/benreid24/Stellaru">
+          <Anchor
+            target="_blank"
+            href="https://github.com/benreid24/Stellaru"
+            size="xl"
+          >
             Stellaru
           </Anchor>{" "}
           by benreid24, a data visualization suite for Stellaris.

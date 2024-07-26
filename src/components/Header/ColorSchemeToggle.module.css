@@ -1,0 +1,9 @@
+.icon {
+  background-color: var(--mantine-color-gray-0);
+  color: var(--mantine-color-blue-6);
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-6);
+    color: var(--mantine-color-yellow-4);
+  }
+}
