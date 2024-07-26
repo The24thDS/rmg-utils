@@ -8,6 +8,7 @@ export default mergeConfig(
       coverage: {
         reporter: ["text", "json", "html"],
       },
+      include: ["**/*.test.ts", "**/*.test.tsx"],
     },
   })
 );

@@ -7,7 +7,7 @@ import {
   IconEdit,
   IconNewSection,
   IconTrash,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 
 import { selectedActionAtom } from "../store/galaxy.store";
 import {

@@ -14,6 +14,7 @@ export const ROUTES = {
   GALAXY_BUILDER: {
     path: "/galaxy-builder",
     name: "Galaxy builder",
+  },
   UNUSED_DDS_FINDER: {
     path: "/unused-dds-finder",
     name: "Unused DDS finder",
