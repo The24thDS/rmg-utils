@@ -14,6 +14,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/dropzone/styles.css";
+import "jotai-devtools/styles.css"; // TODO: conditionally import this
 
 import { ROUTES } from "./constants";
 import Home from "./components/Home";
@@ -59,6 +60,7 @@ export default function App() {
       value={beforeInstallPromptContextValue}
     >
       <MantineProvider defaultColorScheme="dark">
+        <DevTools />
         <Notifications />
         <BrowserRouter>
           <Stack

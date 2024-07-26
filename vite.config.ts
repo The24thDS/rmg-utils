@@ -1,8 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
-import jotaiDebugLabel from "jotai/babel/plugin-debug-label";
-import jotaiReactRefresh from "jotai/babel/plugin-react-refresh";
+// import jotaiDevTools from "jotai/babel/preset";
 
 const env = process.env.RUNTIME_ENV ?? "local";
 
@@ -20,7 +19,7 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: [jotaiDebugLabel, jotaiReactRefresh],
+        presets: ["jotai/babel/preset"],
       },
     }),
     VitePWA({

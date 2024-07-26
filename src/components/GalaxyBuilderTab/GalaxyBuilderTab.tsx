@@ -33,11 +33,11 @@ const LoadGalaxyButton = () => {
 
 export const GalaxyBuilderTab = () => {
   return (
-    <Grid columns={gridColums}>
-      <Grid.Col span={gridColums} lg={7}>
+    <Grid columns={gridColums} gutter="xl">
+      <Grid.Col span={{ base: gridColums, lg: 7 }}>
         <GalaxyMap />
       </Grid.Col>
-      <Grid.Col span={gridColums} sm={5}>
+      <Grid.Col span={{ base: gridColums, sm: 5 }}>
         <Stack>
           <Group grow>
             <Button disabled>New galaxy</Button>

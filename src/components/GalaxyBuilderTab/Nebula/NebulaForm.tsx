@@ -47,7 +47,7 @@ export const NebulaForm = ({ atom }: { atom: PrimitiveAtom<Nebula> }) => {
     >
       <TextInput label="ID" disabled value={nebula.id} readOnly />
       <TextInput mt="md" label="Name" {...form.getInputProps("name")} />
-      <Group spacing="xs" mt="md" align="start" grow>
+      <Group gap="xs" mt="md" align="start" grow>
         <NumberInput
           label="X position"
           {...form.getInputProps("x")}
@@ -67,7 +67,7 @@ export const NebulaForm = ({ atom }: { atom: PrimitiveAtom<Nebula> }) => {
           min={1}
         />
       </Group>
-      <Group spacing="xs" mt="lg">
+      <Group gap="xs" mt="lg">
         <Button type="submit">Save</Button>
         <Button variant="subtle" type="reset">
           Revert
