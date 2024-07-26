@@ -26,28 +26,24 @@ export const useMarkerDraggingEventHandlers = (
   const selectedAction = useAtomValue(selectedActionAtom);
   const isMoveAction = selectedAction === "move";
 
-  return {
-    mousedown:
-      isMoveAction && isSelected
-        ? (e: L.LeafletMouseEvent) => {
-            if (e.originalEvent.button === 0) {
-              map.on("mousemove", (e) => {
-                map.dragging.disable();
-                onMove(e.latlng);
-              });
-            }
+  return isMoveAction && isSelected
+    ? {
+        mousedown: (e: L.LeafletMouseEvent) => {
+          if (e.originalEvent.button === 0) {
+            map.on("mousemove", (e) => {
+              map.dragging.disable();
+              onMove(e.latlng);
+            });
           }
-        : undefined,
-    mouseup:
-      isMoveAction && isSelected
-        ? (e: L.LeafletMouseEvent) => {
-            if (e.originalEvent.button === 0) {
-              map.dragging.enable();
-              map.off("mousemove");
-            }
+        },
+        mouseup: (e: L.LeafletMouseEvent) => {
+          if (e.originalEvent.button === 0) {
+            map.dragging.enable();
+            map.off("mousemove");
           }
-        : undefined,
-  };
+        },
+      }
+    : {};
 };
 
 interface MapItemActions {
