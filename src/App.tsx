@@ -1,7 +1,6 @@
+import { lazy, Suspense, useEffect } from "react";
 import {
   Center,
-  ColorScheme,
-  ColorSchemeProvider,
   Container,
   Loader,
   MantineProvider,
@@ -11,22 +10,29 @@ import { Notifications } from "@mantine/notifications";
 import { DevTools } from "jotai-devtools";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
+import "@mantine/dropzone/styles.css";
+
 import { ROUTES } from "./constants";
 import Home from "./components/Home";
 import LightLocatorsGeneratorTab from "./components/LightLocatorsGeneratorTab";
-import { lazy, Suspense, useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Privacy from "./static_pages/Privacy";
 import { isDNTEnabled } from "./utils/general";
 import OtherTools from "./static_pages/OtherTools";
 import { GalaxyBuilderTab } from "./components/GalaxyBuilderTab/GalaxyBuilderTab";
+import {
+  useBeforeInstallPrompt,
+  BeforeInstallPromptContext,
+} from "./hooks/useIsInstalled";
 
 const TraitsBuilderTab = lazy(() => import("./components/TraitsBuilderTab"));
+const UnusedDDSFinderTab = lazy(() => import("./components/UnusedDDSFinder"));
 
 export default function App() {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+  const beforeInstallPromptContextValue = useBeforeInstallPrompt();
 
   // Analytics script for prod
   useEffect(() => {
@@ -49,20 +55,14 @@ export default function App() {
   }, []);
 
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
+    <BeforeInstallPromptContext.Provider
+      value={beforeInstallPromptContextValue}
     >
-      <MantineProvider
-        theme={{ colorScheme }}
-        withGlobalStyles
-        withNormalizeCSS
-      >
-        <DevTools theme="dark" />
+      <MantineProvider defaultColorScheme="dark">
         <Notifications />
         <BrowserRouter>
           <Stack
-            sx={{
+            style={{
               minHeight: "100vh",
             }}
           >
@@ -71,7 +71,7 @@ export default function App() {
               fluid
               mt="md"
               p="sm"
-              sx={{
+              style={{
                 maxWidth: "1200px",
                 width: "100%",
               }}
@@ -93,6 +93,20 @@ export default function App() {
                       }
                     >
                       <TraitsBuilderTab />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path={ROUTES.UNUSED_DDS_FINDER.path}
+                  element={
+                    <Suspense
+                      fallback={
+                        <Center style={{ height: "300px" }}>
+                          <Loader size="xl" variant="bars" />
+                        </Center>
+                      }
+                    >
+                      <UnusedDDSFinderTab />
                     </Suspense>
                   }
                 />
@@ -121,6 +135,6 @@ export default function App() {
           </Stack>
         </BrowserRouter>
       </MantineProvider>
-    </ColorSchemeProvider>
+    </BeforeInstallPromptContext.Provider>
   );
 }
