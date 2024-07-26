@@ -15,6 +15,7 @@ import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/dropzone/styles.css";
 import "jotai-devtools/styles.css"; // TODO: conditionally import this
+import "mantine-contextmenu/styles.css";
 
 import { ROUTES } from "./constants";
 import Home from "./components/Home";

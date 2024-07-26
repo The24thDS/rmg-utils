@@ -60,7 +60,7 @@ export const useMapItemContextMenu = (
   isSelected: boolean,
   actions: MapItemActions
 ) => {
-  const showContextMenu = useContextMenu();
+  const { showContextMenu } = useContextMenu();
   const [selectedAction, setSelectedAction] = useAtom(selectedActionAtom);
 
   return (e: L.LeafletMouseEvent) => {
@@ -97,7 +97,7 @@ export const useMapItemContextMenu = (
 };
 
 export const useMapContextMenu = () => {
-  const showContextMenu = useContextMenu();
+  const { showContextMenu } = useContextMenu();
   const setSelectedAction = useSetAtom(selectedActionAtom);
   const dispatchNebulas = useSetAtom(nebulasAtomsAtom);
   const isNebulasLayerActive = useAtomValue(nebulasLayerActiveAtom);
