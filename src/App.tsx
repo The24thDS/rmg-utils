@@ -56,7 +56,7 @@ export default function App() {
     <BeforeInstallPromptContext.Provider
       value={beforeInstallPromptContextValue}
     >
-      <MantineProvider>
+      <MantineProvider defaultColorScheme="dark">
         <Notifications />
         <BrowserRouter>
           <Stack
