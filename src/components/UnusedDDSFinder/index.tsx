@@ -9,7 +9,7 @@ import {
   Flex,
 } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { IconAlertTriangle } from "@tabler/icons";
+import { IconAlertTriangle } from "@tabler/icons-react";
 
 import { RequiresInstallation } from "../shared/RequiresInstallation";
 
@@ -93,7 +93,7 @@ export default function UnusedDDSFinder() {
             <Button maw={200} onClick={handleSelectFolder}>
               Select folder
             </Button>
-            <Stack spacing={0}>
+            <Stack gap={0}>
               {selectedFolder && (
                 <Text size="sm">Selected folder: {selectedFolder}</Text>
               )}

@@ -3,7 +3,7 @@ import { notifications } from "@mantine/notifications";
 import { Stage } from "konva/lib/Stage";
 import { useState } from "react";
 import * as Sentry from "@sentry/browser";
-import { IconX } from "@tabler/icons";
+import { IconX } from "@tabler/icons-react";
 
 declare global {
   interface Window {

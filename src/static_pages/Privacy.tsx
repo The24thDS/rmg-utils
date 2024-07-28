@@ -22,7 +22,7 @@ export default function Privacy() {
     <Container>
       <Title
         order={1}
-        sx={(theme) => ({ fontSize: `calc(${theme.fontSizes.xl} * 2.5)` })}
+        style={{ fontSize: `calc(var(--mantine-font-size-xl) * 2.5)` }}
       >
         Privacy policy
       </Title>
@@ -169,22 +169,22 @@ export default function Privacy() {
       <List size="xl">
         <List.Item>
           an email to{" "}
-          <Anchor href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</Anchor> with
+          <Anchor href={`mailto:${CONTACT_EMAIL}`} size="xl">{CONTACT_EMAIL}</Anchor> with
           the subject <em>"Privacy Policy"</em>
         </List.Item>
         <List.Item>
           joining our Discord server by clicking this link{" "}
-          <Anchor href={DISCORD_LINK}>{DISCORD_LINK}</Anchor> and opening a
+          <Anchor href={DISCORD_LINK} size="xl">{DISCORD_LINK}</Anchor> and opening a
           ticket using the <Kbd>/ticket</Kbd> command
         </List.Item>
       </List>
       <Text size="lg" mt="md">
         Adapted from the Basecamp{" "}
-        <Anchor href="https://github.com/basecamp/policies">
+        <Anchor href="https://github.com/basecamp/policies" size="xl">
           open-source policies{" "}
         </Anchor>
         /{" "}
-        <Anchor href="https://creativecommons.org/licenses/by/4.0/">
+        <Anchor href="https://creativecommons.org/licenses/by/4.0/" size="xl">
           CC BY 4.0
         </Anchor>
       </Text>
