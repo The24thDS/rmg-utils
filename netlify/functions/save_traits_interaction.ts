@@ -1,11 +1,14 @@
-import { Handler } from "@netlify/functions";
-import { Response } from "@netlify/functions/dist/function/response";
-import Airtable from "airtable";
+import { Handler, HandlerResponse } from "@netlify/functions";
+import { MongoClient } from "mongodb";
 import invariant from "tiny-invariant";
 import { State } from "../../src/components/TraitsBuilderTab/index.d";
 
+invariant(process.env.MONGODB_URI, "MongoDB URI is not defined.");
+const mongoClient = new MongoClient(process.env.MONGODB_URI);
+const clientPromise = mongoClient.connect();
+
 const saveLocatorsInteraction = async (type: "PNG" | "DDS", state: State) => {
-  const { AIRTABLE_API_KEY, AIRTABLE_BASE, AIRTABLE_TRAITS_TABLE } =
+  const { MONGODB_DATABASE, MONGODB_TRAITS_COLLECTION } =
     process.env;
   const {
     name,
@@ -17,37 +20,24 @@ const saveLocatorsInteraction = async (type: "PNG" | "DDS", state: State) => {
     iconYOffset,
   } = state;
 
-  invariant(AIRTABLE_API_KEY, "Airtable API key is not defined.");
-  invariant(AIRTABLE_BASE, "Airtable base is not defined.");
-  invariant(AIRTABLE_TRAITS_TABLE, "Airtable table id is not defined.");
+  invariant(MONGODB_DATABASE, "Mongo DB name is not defined.");
+  invariant(MONGODB_TRAITS_COLLECTION, "Mongo DB collection is not defined.");
 
-  Airtable.configure({
-    apiKey: AIRTABLE_API_KEY,
-    endpointUrl: "https://api.airtable.com",
-  });
-  const base = Airtable.base(AIRTABLE_BASE);
+  const database = (await clientPromise).db(MONGODB_DATABASE);
+  const collection = database.collection(MONGODB_TRAITS_COLLECTION);
 
-  return new Promise((resolve, reject) => {
-    base(AIRTABLE_TRAITS_TABLE).create(
-      {
-        name,
-        format: type,
-        bg_color: bgColor,
-        recolor_icon: recolorIcon,
-        icon_color: iconColor,
-        icon_scale: iconScale,
-        icon_x_offset: iconXOffset,
-        icon_y_offset: iconYOffset,
-        created_at: new Date().toISOString(),
-      },
-      (err) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(true);
-      }
-    );
+  await collection.insertOne({
+    name,
+    format: type,
+    bg_color: bgColor,
+    recolor_icon: recolorIcon,
+    icon_color: iconColor,
+    icon_scale: iconScale,
+    icon_x_offset: iconXOffset,
+    icon_y_offset: iconYOffset,
+    created_at: new Date(),
   });
+
 };
 
 const headers = {
@@ -57,7 +47,7 @@ const headers = {
 };
 
 const handler: Handler = async (event, _context) => {
-  const response: Response = {
+  const response: HandlerResponse = {
     statusCode: 200,
     headers,
   };
