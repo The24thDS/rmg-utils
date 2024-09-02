@@ -27,7 +27,7 @@ export const SystemsLayer = () => {
             <SystemMarker
               key={`${systemAtom}`}
               systemAtom={systemAtom}
-              // remove={() => dispatch({ type: "remove", atom: systemAtom })}
+              remove={() => dispatch({ type: "remove", atom: systemAtom })}
             />
           ))}
         </Pane>

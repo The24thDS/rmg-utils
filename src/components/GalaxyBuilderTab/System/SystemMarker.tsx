@@ -4,11 +4,14 @@ import { PrimitiveAtom, useAtom } from "jotai";
 import { System } from "../../../utils/map/System";
 import { isSystemItem, selectedItemAtom } from "../../../store/galaxy.store";
 import { useCallback } from "react";
+import { useMapItemContextMenu } from "../../../hooks";
 
 export const SystemMarker = ({
   systemAtom,
+  remove,
 }: {
   systemAtom: PrimitiveAtom<System>;
+  remove: () => void;
 }) => {
   const [system, setSystem] = useAtom(systemAtom);
   const [selectedItem, setSelectedItem] = useAtom(selectedItemAtom);
@@ -23,6 +26,17 @@ export const SystemMarker = ({
     });
   }, [system.id, systemAtom, setSelectedItem]);
 
+  const removeSystem = () => {
+    setSelectedItem(null);
+    remove();
+  };
+
+  const contextmenu = useMapItemContextMenu(isSelected, {
+    move: setAsSelected,
+    edit: setAsSelected,
+    remove: removeSystem,
+  });
+
   return system ? (
     <CircleMarker
       key={`${systemAtom}`}
@@ -30,6 +44,7 @@ export const SystemMarker = ({
       radius={3}
       eventHandlers={{
         click: setAsSelected,
+        contextmenu,
       }}
       pathOptions={{
         color: isSelected ? "orange" : "#3388ff",
