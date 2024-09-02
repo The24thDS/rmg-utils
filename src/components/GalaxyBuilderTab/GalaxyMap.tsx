@@ -1,8 +1,6 @@
 import {
   MapContainer,
-  Popup,
   ImageOverlay,
-  CircleMarker,
   Polyline,
   LayersControl,
   LayerGroup,
@@ -10,7 +8,6 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import { useAtom, useSetAtom } from "jotai";
-import { Text, Title } from "@mantine/core";
 import { ContextMenuProvider } from "mantine-contextmenu";
 
 import { System } from "../../utils/map/System";
@@ -21,6 +18,7 @@ import {
 } from "../../store/nebulas.store";
 import { NebulaMarker } from "./Nebula/NebulaMarker";
 import { useMapContextMenu } from "../../hooks";
+import { SystemsLayer } from "./System/SystemsLayer";
 
 // TODO: Find a better picture
 import background from "../../assets/images/galaxycolor.png";
@@ -102,32 +100,7 @@ export const GalaxyMap = () => {
         <BackgroundPane />
         <Pane name="popups" style={{ zIndex: 500 }} />
         <LayersControl position="topright">
-          <LayersControl.Overlay name="Systems" checked>
-            <LayerGroup>
-              <Pane name="systems" style={{ zIndex: 400 }}>
-                {Array.from(systems.keys()).map((id) => {
-                  const system = systems.get(id);
-                  return system ? (
-                    <CircleMarker
-                      key={id}
-                      center={[system.y, system.x]}
-                      radius={3}
-                    >
-                      <Popup pane="popups" closeButton maxWidth={500}>
-                        <Title order={5}>{system.name}</Title>
-                        <Text size="sm">
-                          id: {system.id} | x: {system.x * 1} | y:{" "}
-                          {system.y * 1}
-                          <br />
-                          initializer: {system.init ?? "none"}
-                        </Text>
-                      </Popup>
-                    </CircleMarker>
-                  ) : null;
-                })}
-              </Pane>
-            </LayerGroup>
-          </LayersControl.Overlay>
+          <SystemsLayer />
           <LayersControl.Overlay name="Hyperlanes" checked>
             <LayerGroup>
               <Pane name="hyperlanes" style={{ zIndex: 300 }}>

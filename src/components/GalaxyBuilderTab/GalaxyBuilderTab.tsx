@@ -7,20 +7,23 @@ import { RightPanel } from "./RightPanel";
 
 import { parseData } from "../../utils/galaxyBuilder";
 import { nebulasAtom } from "../../store/nebulas.store";
+import { systemsAtom } from "../../store/systems.store";
 
 const gridColums = 12;
 
 const LoadGalaxyButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const setNebulas = useSetAtom(nebulasAtom);
+  const setSystems = useSetAtom(systemsAtom);
 
   const handleClick = () => {
     setIsLoading(true);
     const { systems, hyperlanes, nebulas } = parseData();
-    console.debug(`${systems.size} systems loaded.`);
+    console.debug(`${systems.length} systems loaded.`);
     console.debug(`${hyperlanes.length} hyperlanes loaded.`);
     console.debug(`${nebulas.length} nebulas loaded.`);
     setNebulas(nebulas);
+    setSystems(systems);
     setIsLoading(false);
   };
 

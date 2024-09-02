@@ -4,7 +4,8 @@ import { Nebula } from "./map/Nebula";
 import { System } from "./map/System";
 
 export const parseData = () => {
-  const systems = new Map<number, System>();
+  // const systems = new Map<number, System>();
+  const systems: System[] = [];
   const hyperlanes: Array<Hyperlane> = [];
   const nebulas: Array<Nebula> = [];
   const lines = testData.split("\n");
@@ -12,7 +13,8 @@ export const parseData = () => {
     // check if the line is a system using the baseRegExp
     if (System.baseRegExp.exec(line)?.groups) {
       const system = new System(line);
-      systems.set(system.id, system);
+      // systems.set(system.id, system);
+      systems.push(system);
     }
     // check if the line is a hyperlane using the baseRegExp
     else if (Hyperlane.baseRegExp.exec(line)) {
