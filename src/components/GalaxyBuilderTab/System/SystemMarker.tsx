@@ -4,7 +4,10 @@ import { PrimitiveAtom, useAtom } from "jotai";
 import { System } from "../../../utils/map/System";
 import { isSystemItem, selectedItemAtom } from "../../../store/galaxy.store";
 import { useCallback } from "react";
-import { useMapItemContextMenu } from "../../../hooks";
+import {
+  useMapItemContextMenu,
+  useMarkerDraggingEventHandlers,
+} from "../../../hooks";
 
 export const SystemMarker = ({
   systemAtom,
@@ -31,6 +34,20 @@ export const SystemMarker = ({
     remove();
   };
 
+  const updateSystemCoords = ({ lat, lng }: { lat: number; lng: number }) => {
+    setAsSelected();
+    setSystem((prevSystem) => {
+      const newSystem = new System(prevSystem.toString());
+      newSystem.x = Math.round(lng);
+      newSystem.y = Math.round(lat);
+      return newSystem;
+    });
+  };
+
+  const draggingEventHandlers = useMarkerDraggingEventHandlers(
+    isSelected,
+    updateSystemCoords
+  );
   const contextmenu = useMapItemContextMenu(isSelected, {
     move: setAsSelected,
     edit: setAsSelected,
@@ -42,14 +59,15 @@ export const SystemMarker = ({
       key={`${systemAtom}`}
       center={[system.y, system.x]}
       radius={3}
-      eventHandlers={{
-        click: setAsSelected,
-        contextmenu,
-      }}
       pathOptions={{
         color: isSelected ? "orange" : "#3388ff",
         fillColor: isSelected ? "orange" : "#3388ff",
         fillOpacity: 0.5,
+      }}
+      eventHandlers={{
+        click: setAsSelected,
+        ...draggingEventHandlers,
+        contextmenu,
       }}
     >
       <Tooltip pane="popups" className="rmg-leaflet-popup">
