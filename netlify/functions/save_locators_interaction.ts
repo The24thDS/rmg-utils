@@ -1,41 +1,30 @@
-import { Handler } from "@netlify/functions";
-import { Response } from "@netlify/functions/dist/function/response";
-import Airtable from "airtable";
+import { Handler, HandlerResponse } from "@netlify/functions";
+import { MongoClient } from "mongodb";
 import invariant from "tiny-invariant";
+
+invariant(process.env.MONGODB_URI, "MongoDB URI is not defined.");
+const mongoClient = new MongoClient(process.env.MONGODB_URI);
+const clientPromise = mongoClient.connect();
 
 const saveLocatorsInteraction = async (
   type: "generate" | "copy",
   amount: number,
   stateTime: number
 ) => {
-  const { AIRTABLE_API_KEY, AIRTABLE_BASE, AIRTABLE_LOCATORS_TABLE } =
+  const { MONGODB_DATABASE, MONGODB_LOCATORS_COLLECTION } =
     process.env;
 
-  invariant(AIRTABLE_API_KEY, "Airtable API key is not defined.");
-  invariant(AIRTABLE_BASE, "Airtable base is not defined.");
-  invariant(AIRTABLE_LOCATORS_TABLE, "Airtable table id is not defined.");
+  invariant(MONGODB_DATABASE, "Mongo DB name is not defined.");
+  invariant(MONGODB_LOCATORS_COLLECTION, "Mongo DB collection is not defined.");
 
-  Airtable.configure({
-    apiKey: AIRTABLE_API_KEY,
-    endpointUrl: "https://api.airtable.com",
-  });
-  const base = Airtable.base(AIRTABLE_BASE);
+  const database = (await clientPromise).db(MONGODB_DATABASE);
+  const collection = database.collection(MONGODB_LOCATORS_COLLECTION);
 
-  return new Promise((resolve, reject) => {
-    base(AIRTABLE_LOCATORS_TABLE).create(
-      {
-        action_type: type,
-        locators_number: amount,
-        state_time: stateTime,
-        created_at: new Date().toISOString(),
-      },
-      (err) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(true);
-      }
-    );
+  await collection.insertOne({
+    action_type: type,
+    locators_number: amount,
+    state_time: stateTime,
+    created_at: new Date(),
   });
 };
 
@@ -46,7 +35,7 @@ const headers = {
 };
 
 const handler: Handler = async (event, _context) => {
-  const response: Response = {
+  const response: HandlerResponse = {
     statusCode: 200,
     headers,
   };

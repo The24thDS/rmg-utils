@@ -1,7 +1,7 @@
 {
   "name": "rmg-utils",
   "private": true,
-  "version": "1.6.0",
+  "version": "1.6.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,10 +22,9 @@
     "@mantine/form": "^7.0.0",
     "@mantine/hooks": "^7.0.0",
     "@mantine/notifications": "^7.0.0",
-    "@netlify/functions": "^1.0.0",
+    "@netlify/functions": "^2.8.1",
     "@sentry/browser": "^7.12.1",
     "@tabler/icons-react": "^3.5.0",
-    "airtable": "^0.11.4",
     "clsx": "^2.1.1",
     "filesize": "^10.0.12",
     "jotai": "^2.4.1",
@@ -33,6 +32,7 @@
     "konva": "^8.3.14",
     "leaflet": "^1.9.4",
     "mantine-contextmenu": "^7.11.2",
+    "mongodb": "^6.8.0",
     "random": "^3.0.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
