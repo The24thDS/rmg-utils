@@ -18,10 +18,13 @@ const LoadGalaxyButton = () => {
 
   const handleClick = () => {
     setIsLoading(true);
+    const start = performance.now();
     const { systems, hyperlanes, nebulas } = parseData();
-    console.debug(`${systems.length} systems loaded.`);
-    console.debug(`${hyperlanes.length} hyperlanes loaded.`);
-    console.debug(`${nebulas.length} nebulas loaded.`);
+    const end = performance.now();
+    console.info(`${systems.length} systems loaded.`);
+    console.info(`${hyperlanes.length} hyperlanes loaded.`);
+    console.info(`${nebulas.length} nebulas loaded.`);
+    console.info(`Time taken: ${end - start} milliseconds`);
     setNebulas(nebulas);
     setSystems(systems);
     setIsLoading(false);

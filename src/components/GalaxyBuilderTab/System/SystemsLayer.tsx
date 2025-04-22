@@ -11,7 +11,7 @@ export const SystemsLayer = () => {
   const [systemsAtoms, dispatch] = useAtom(systemsAtomsAtom);
   const setSystemLayerActive = useSetAtom(systemsLayerActiveAtom);
   return (
-    <LayersControl.Overlay name="systems" checked>
+    <LayersControl.Overlay name="Systems" checked>
       <LayerGroup
         eventHandlers={{
           add: () => {

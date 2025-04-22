@@ -1,19 +1,13 @@
 import { Code, Paper, Title, Text, Divider } from "@mantine/core";
 import { useAtomValue } from "jotai";
 
-import { NebulaForm } from "./Nebula/NebulaForm";
+import { MapObjectForm } from "./common/MapObjectForm";
 
 import { selectedActionAtom, selectedItemAtom } from "../../store/galaxy.store";
-
-const FORM_MAP = {
-  nebula: NebulaForm,
-};
 
 export const RightPanel = () => {
   const selectedAction = useAtomValue(selectedActionAtom);
   const selectedItem = useAtomValue(selectedItemAtom);
-
-  const Form = FORM_MAP[selectedItem?.type ?? "nebula"];
 
   // TODO: add text in case the galaxy is empty
   return (
@@ -29,7 +23,7 @@ export const RightPanel = () => {
         </Text>
       )}
       {selectedAction === "edit" && selectedItem && (
-        <Form key={selectedItem.id} atom={selectedItem.atom} />
+        <MapObjectForm key={selectedItem.id} atom={selectedItem.atom} />
       )}
     </Paper>
   );

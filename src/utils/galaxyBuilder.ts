@@ -11,6 +11,7 @@ export const parseData = () => {
   const lines = testData.split("\n");
   lines.forEach((line) => {
     // check if the line is a system using the baseRegExp
+    // TODO: avoid lines starting with #
     if (System.baseRegExp.exec(line)?.groups) {
       const system = new System(line);
       // systems.set(system.id, system);
